@@ -2121,7 +2121,7 @@
     window.handleSecretStarClick = function () {
       state.secretStarClicks++;
       playSoundEffect('boop');
-      if (state.secretStarClicks >= 5) {
+      if (state.secretStarClicks >= 50) {
         state.secretStarClicks = 0;
         toggleTestMode(!state.testMode);
       }
