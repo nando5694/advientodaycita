@@ -1,0 +1,2508 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>El Calendario de Adviento de Daycita ✨ | Bubu & Dudu</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka (títulos tiernos), Nunito (lectura cálida), Dancing Script (cartas románticas) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Iconos Phosphor -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FFF8F2',
+            creamDark: '#FCEEE2',
+            blush: '#FFE4EC',
+            blushDeep: '#FFB3C6',
+            berry: '#D4243E',
+            berryDark: '#A3162B',
+            pine: '#1E5631',
+            pineLight: '#2E7D47',
+            gold: '#E5B869',
+            goldDark: '#C4923E',
+            cocoa: '#4A3222',
+            dudu: '#C68B59',
+            duduDark: '#8C5830'
+          },
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+            script: ['Dancing Script', 'cursive']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #FFFDFB 0%, #FFF3EA 55%, #FFE8EE 100%);
+      color: #4A3222;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      selection-background-color: #FFB3C6;
+    }
+
+    /* Patrón sutil de copos y corazones de fondo */
+    .bg-festive-pattern {
+      background-image:
+        radial-gradient(#FFB3C6 1.2px, transparent 1.2px),
+        radial-gradient(#E5B869 1.2px, transparent 1.2px);
+      background-size: 36px 36px;
+      background-position: 0 0, 18px 18px;
+    }
+
+    /* Animaciones suaves */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(1.5deg); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 36, 62, 0.35), 0 10px 25px -5px rgba(212, 36, 62, 0.25); }
+      50% { box-shadow: 0 0 0 10px rgba(212, 36, 62, 0), 0 14px 30px -4px rgba(212, 36, 62, 0.4); }
+    }
+
+    @keyframes shakeLocked {
+      0%, 100% { transform: translateX(0) rotate(0); }
+      15% { transform: translateX(-8px) rotate(-3deg); }
+      30% { transform: translateX(7px) rotate(3deg); }
+      45% { transform: translateX(-6px) rotate(-2deg); }
+      60% { transform: translateX(5px) rotate(2deg); }
+      75% { transform: translateX(-3px) rotate(-1deg); }
+    }
+
+    @keyframes earWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-6deg); }
+      75% { transform: rotate(6deg); }
+    }
+
+    @keyframes heartFloat {
+      0% { transform: translateY(0) scale(0.8); opacity: 0.9; }
+      50% { transform: translateY(-10px) scale(1.15); opacity: 1; }
+      100% { transform: translateY(-20px) scale(0.9); opacity: 0; }
+    }
+
+    @keyframes ribbonUnwrap {
+      0% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.25) rotate(12deg); opacity: 0.8; }
+      100% { transform: scale(0) rotate(45deg); opacity: 0; }
+    }
+
+    .animate-float {
+      animation: floatSlow 3.6s ease-in-out infinite;
+    }
+
+    .animate-glow-ready {
+      animation: pulseGlow 2.2s infinite;
+    }
+
+    .shake-card {
+      animation: shakeLocked 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    .heart-particle {
+      animation: heartFloat 2.4s ease-in-out infinite;
+    }
+
+    /* Estilo de las puertas 3D del calendario */
+    .advent-door {
+      transition: all 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+
+    .advent-door:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+
+    .advent-door:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    /* Listones de regalo en las tarjetas cerradas */
+    .gift-ribbon-v {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 18px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.08) 100%), #D4243E;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .gift-ribbon-h {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 18px;
+      transform: translateY(-50%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.08) 100%), #D4243E;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .gift-ribbon-gold .gift-ribbon-v,
+    .gift-ribbon-gold .gift-ribbon-h {
+      background-color: #E5B869;
+    }
+
+    /* Bordes tipo cupón recortable */
+    .coupon-ticket {
+      background: linear-gradient(135deg, #FFFDF9 0%, #FFF4EB 100%);
+      border: 2px dashed #D4243E;
+      position: relative;
+    }
+
+    .coupon-ticket::before,
+    .coupon-ticket::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 22px;
+      height: 22px;
+      background-color: #FFF8F2;
+      border-radius: 9999px;
+      transform: translateY(-50%);
+    }
+
+    .coupon-ticket::before {
+      left: -13px;
+      border-right: 2px dashed #D4243E;
+    }
+
+    .coupon-ticket::after {
+      right: -13px;
+      border-left: 2px dashed #D4243E;
+    }
+
+    /* Scrollbar personalizado */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FFF3EA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #FFB3C6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4243E;
+    }
+
+    /* Canvas de nieve y fuegos artificiales */
+    #snow-canvas, #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    #snow-canvas { z-index: 1; }
+    #fx-canvas { z-index: 90; }
+  </style>
+</head>
+<body class="bg-festive-pattern relative selection:bg-blushDeep selection:text-cocoa">
+
+  <!-- Canvas de nieve suave en el fondo -->
+  <canvas id="snow-canvas"></canvas>
+  <!-- Canvas de confeti y fuegos artificiales de corazones -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Barra flotante superior de utilidades -->
+  <nav class="sticky top-0 z-30 backdrop-blur-md bg-cream/85 border-b border-blushDeep/40 px-3 sm:px-6 py-2.5 shadow-sm">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <!-- Estado de sincronización y reloj real -->
+      <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-cocoa">
+        <span id="sync-indicator" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white border border-blushDeep/60 shadow-sm">
+          <span id="sync-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span id="sync-text">Conectando...</span>
+        </span>
+        <span class="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/80 border border-gold/40 text-cocoa/80">
+          <i class="ph-fill ph-clock text-berry"></i>
+          <span id="guatemala-clock">Cargando hora...</span>
+        </span>
+      </div>
+
+      <!-- Botones interactivos: Vales desbloqueados, Abrazómetro y Música -->
+      <div class="flex items-center gap-2">
+        <!-- Botón de Abrazo Rápido -->
+        <button id="btn-quick-hug" onclick="sendQuickHug()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blush hover:bg-blushDeep/60 text-berryDark font-display font-medium text-xs sm:text-sm transition transform active:scale-95 shadow-sm border border-blushDeep">
+          <span>🤗</span>
+          <span class="hidden sm:inline">Abrazos dados:</span>
+          <span id="global-hug-counter" class="font-bold">0</span>
+        </button>
+
+        <!-- Botón Mi Billetera de Vales -->
+        <button onclick="openCouponsWalletModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100/90 hover:bg-amber-200 text-cocoa font-display font-medium text-xs sm:text-sm transition transform active:scale-95 shadow-sm border border-gold">
+          <i class="ph-fill ph-ticket text-berry text-base"></i>
+          <span>Mis Vales</span>
+          <span id="wallet-count-badge" class="px-1.5 py-0.2 bg-berry text-white rounded-full text-xs font-bold">0</span>
+        </button>
+
+        <!-- Botón de Música Navideña Web Audio API -->
+        <button id="btn-music-toggle" onclick="toggleMusicBox()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-berry hover:bg-berryDark text-white font-display font-medium text-xs sm:text-sm transition transform active:scale-95 shadow-md">
+          <i id="music-icon" class="ph-fill ph-speaker-slash text-base"></i>
+          <span id="music-label" class="hidden sm:inline">Música</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Banner de Modo Prueba Secreto (Oculto por defecto hasta activarlo) -->
+  <div id="test-mode-banner" class="hidden relative z-30 bg-gradient-to-r from-pine via-pineLight to-pine text-white px-4 py-2.5 shadow-md border-b-2 border-gold">
+    <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+      <div class="flex items-center gap-2 font-display">
+        <span class="px-2 py-0.5 bg-gold text-cocoa font-bold rounded-full text-xs">MODO NOVIO ACTIVO 🛠️</span>
+        <span>Todas las 24 puertas están desbloqueadas para que puedas probarlas hoy mismo.</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="openBoyfriendAdminModal()" class="px-3 py-1 rounded-full bg-white/20 hover:bg-white/30 font-semibold transition">
+          Ver notas de Daycita 💌
+        </button>
+        <button onclick="resetAllDoorsConfirm()" class="px-3 py-1 rounded-full bg-berry hover:bg-berryDark font-semibold transition">
+          Reiniciar Puertas 🔄
+        </button>
+        <button onclick="toggleTestMode(false)" class="px-3 py-1 rounded-full bg-white text-pine font-bold hover:bg-cream transition">
+          Salir Modo Prueba ✖
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor Principal -->
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-6 pb-20">
+
+    <!-- ENCABEZADO MÁGICO DE BUBU Y DUDU PARA DAYCITA -->
+    <header class="relative bg-gradient-to-b from-white/95 via-FFF9F5/95 to-blush/40 rounded-3xl p-5 sm:p-8 shadow-xl border-2 border-blushDeep/60 overflow-hidden mb-8">
+      <!-- Guirnalda decorativa superior -->
+      <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-pine via-berry to-gold opacity-85"></div>
+
+      <!-- Luces navideñas decorativas -->
+      <div class="flex justify-center gap-4 sm:gap-8 -mt-2 mb-3 select-none" aria-hidden="true">
+        <span class="w-3 h-3 rounded-full bg-berry shadow-[0_0_10px_#D4243E] animate-pulse"></span>
+        <span class="w-3 h-3 rounded-full bg-gold shadow-[0_0_10px_#E5B869] animate-pulse" style="animation-delay:0.3s"></span>
+        <span class="w-3 h-3 rounded-full bg-pineLight shadow-[0_0_10px_#2E7D47] animate-pulse" style="animation-delay:0.6s"></span>
+        <span class="w-3 h-3 rounded-full bg-pink-400 shadow-[0_0_10px_#F472B6] animate-pulse" style="animation-delay:0.9s"></span>
+        <span class="w-3 h-3 rounded-full bg-berry shadow-[0_0_10px_#D4243E] animate-pulse" style="animation-delay:1.2s"></span>
+        <span class="w-3 h-3 rounded-full bg-gold shadow-[0_0_10px_#E5B869] animate-pulse" style="animation-delay:1.5s"></span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Columna Izquierda: Textos y Contador -->
+        <div class="lg:col-span-7 text-center lg:text-left space-y-3">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blush border border-blushDeep text-berryDark text-xs sm:text-sm font-bold shadow-sm">
+            <span>🎄 Edición Especial Navideña para Dairyn</span>
+            <span>•</span>
+            <span>Bubu & Dudu 🐾</span>
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-cocoa leading-tight">
+            El Calendario de Adviento de <span class="text-berry underline decoration-wavy decoration-gold/80">Daycita</span>
+            <!-- Estrella secreta: 5 clics activan el Modo Prueba -->
+            <button id="secret-star-btn" onclick="handleSecretStarClick()" title="Estrella Mágica de Belén" class="inline-block transform hover:scale-125 active:scale-90 transition cursor-pointer select-none focus:outline-none">
+              ✨
+            </button>
+          </h1>
+
+          <p class="text-cocoa/85 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            Mi amor hermoso, <strong class="text-berryDark">Dairyn (mi Daycita preciosa)</strong>: cada día del <strong>1 al 24 de diciembre</strong> guarda un pedacito de mi corazón, un vale canjeable y una aventura de <strong>Bubu (tu osita blanca)</strong> y <strong>Dudu (tu osito café)</strong>. ¡Pero ojo! Dudu vigila que no abras ningún regalo antes de su fecha real. 🐻‍❄️🤍🐻
+          </p>
+
+          <!-- Tarjeta de Cuenta Regresiva en Tiempo Real -->
+          <div class="pt-2">
+            <div class="inline-block w-full sm:w-auto bg-cream border-2 border-gold/60 rounded-2xl p-3.5 sm:px-5 shadow-md">
+              <div class="flex items-center justify-center lg:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-berryDark mb-2">
+                <i class="ph-fill ph-sparkle text-goldDark text-base"></i>
+                <span id="countdown-title">Tiempo para desbloquear el próximo regalo:</span>
+              </div>
+
+              <div class="grid grid-cols-4 gap-2 sm:gap-3 text-center">
+                <div class="bg-white rounded-xl px-2.5 py-2 border border-blushDeep/60 shadow-sm">
+                  <div id="cd-days" class="font-display text-xl sm:text-2xl font-bold text-berry">00</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-cocoa/70 uppercase">Días</div>
+                </div>
+                <div class="bg-white rounded-xl px-2.5 py-2 border border-blushDeep/60 shadow-sm">
+                  <div id="cd-hours" class="font-display text-xl sm:text-2xl font-bold text-berry">00</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-cocoa/70 uppercase">Horas</div>
+                </div>
+                <div class="bg-white rounded-xl px-2.5 py-2 border border-blushDeep/60 shadow-sm">
+                  <div id="cd-mins" class="font-display text-xl sm:text-2xl font-bold text-berry">00</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-cocoa/70 uppercase">Min</div>
+                </div>
+                <div class="bg-white rounded-xl px-2.5 py-2 border border-blushDeep/60 shadow-sm">
+                  <div id="cd-secs" class="font-display text-xl sm:text-2xl font-bold text-berry">00</div>
+                  <div class="text-[10px] sm:text-xs font-bold text-cocoa/70 uppercase">Seg</div>
+                </div>
+              </div>
+              <p id="current-date-status" class="text-xs text-cocoa/75 mt-2 font-semibold text-center lg:text-left"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Ilustración Grande SVG de Bubu y Dudu Navideños -->
+        <div class="lg:col-span-5 flex flex-col items-center justify-center">
+          <div id="header-bubu-dudu-art" onclick="triggerHeaderBearsBoop()" class="w-full max-w-[320px] sm:max-w-[360px] cursor-pointer animate-float select-none" title="¡Haz clic en Bubu y Dudu para darles amor!">
+            <!-- Inyectado dinámicamente con el SVG de Bubu (blanca) y Dudu (café) abrazándose -->
+          </div>
+          <span class="text-xs font-semibold text-berryDark/80 bg-white/80 px-3 py-1 rounded-full border border-blushDeep mt-1 shadow-sm">
+            💡 Toca a Bubu y Dudu para escucharlos felices
+          </span>
+        </div>
+      </div>
+
+      <!-- BARRA DE PROGRESO INTERACTIVA: DUDU CAMINANDO HACIA BUBU -->
+      <div class="mt-7 pt-5 border-t border-blushDeep/50">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="font-display font-bold text-sm sm:text-base text-cocoa">
+              🐾 El Caminito de Navidad hacia el Abrazo de Nochebuena:
+            </span>
+          </div>
+          <div class="text-xs sm:text-sm font-extrabold text-berry bg-blush px-3 py-1 rounded-full border border-blushDeep">
+            <span id="opened-count-text">0 de 24</span> regalos abiertos (<span id="opened-percent-text">0%</span>)
+          </div>
+        </div>
+
+        <!-- Pista nevada donde Dudu camina hacia Bubu -->
+        <div class="relative h-14 bg-gradient-to-r from-creamDark via-white to-blush rounded-2xl border-2 border-gold/60 px-4 flex items-center shadow-inner overflow-hidden">
+          <!-- Huellitas en la nieve -->
+          <div class="w-full flex justify-between items-center text-cocoa/20 text-xs select-none px-8" aria-hidden="true">
+            <span>🐾</span><span>🐾</span><span>🐾</span><span>🎄</span><span>🐾</span><span>🐾</span><span>🐾</span><span>⛄</span><span>🐾</span><span>🐾</span><span>🐾</span>
+          </div>
+
+          <!-- Relleno de barra de progreso -->
+          <div id="progress-fill-bar" class="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-berry/20 via-blushDeep/45 to-gold/40 transition-all duration-700 ease-out" style="width: 6%;"></div>
+
+          <!-- Dudu caminando (se mueve según porcentaje) -->
+          <div id="walking-dudu-marker" class="absolute top-1/2 -translate-y-1/2 transition-all duration-700 ease-out z-10 flex flex-col items-center" style="left: 2%;">
+            <div class="w-10 h-10 bg-white rounded-full border-2 border-dudu shadow-md flex items-center justify-center" id="mini-dudu-head"></div>
+            <span class="text-[10px] font-bold bg-dudu text-white px-1.5 rounded-full -mt-1 shadow">Dudu</span>
+          </div>
+
+          <!-- Bubu esperando en la meta con un regalo (Día 24) -->
+          <div class="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
+            <div class="w-10 h-10 bg-white rounded-full border-2 border-berry shadow-md flex items-center justify-center" id="mini-bubu-head"></div>
+            <span class="text-[10px] font-bold bg-berry text-white px-1.5 rounded-full -mt-1 shadow">Bubu (Día 24)</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- FILTROS RÁPIDOS Y LEYENDA DEL CALENDARIO -->
+    <section class="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-gold shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-pineLight"></span> Abierto
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-berry shadow-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-berry animate-ping"></span> ¡Disponible hoy!
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-blushDeep shadow-sm">
+          <i class="ph-fill ph-lock-key text-cocoa/60"></i> Bloqueado por Dudu Guardia
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button onclick="openLoveLetterIntroModal()" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-blush text-berryDark border border-blushDeep font-display font-semibold text-xs sm:text-sm shadow-sm transition">
+          <i class="ph-fill ph-envelope-heart text-berry text-base"></i>
+          <span>Carta de Bienvenida para Daycita</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- CUADRÍCULA DE LAS 24 PUERTAS DEL CALENDARIO DE ADVIENTO -->
+    <section aria-label="Puertas del Calendario de Adviento">
+      <div id="advent-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-5">
+        <!-- Las 24 tarjetas se renderizan dinámicamente con JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE ESTADÍSTICAS ROMÁNTICAS DE BUBU Y DUDU -->
+    <section class="mt-12 bg-white/90 rounded-3xl p-6 sm:p-8 border-2 border-blushDeep/60 shadow-lg">
+      <div class="text-center max-w-2xl mx-auto mb-6">
+        <h2 class="font-display text-2xl sm:text-3xl font-bold text-cocoa">
+          🐻‍❄️ El Rincón de Amor de Bubu y Dudu para Daycita 🐻
+        </h2>
+        <p class="text-sm sm:text-base text-cocoa/75 mt-1">
+          Mientras esperas cada día de diciembre, aquí puedes enviarle abracitos a tu Dudu o jugar con los cachetitos de Bubu.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Tarjeta 1: Máquina de Apretar Cachetes de Bubu -->
+        <div class="bg-cream rounded-2xl p-5 border border-blushDeep flex flex-col items-center text-center shadow-sm">
+          <div id="squish-bubu-container" class="w-32 h-32 mb-2 transition-transform duration-150 select-none cursor-pointer" onclick="squishBubuCheeks()">
+            <!-- SVG Bubu cachetona -->
+          </div>
+          <h3 class="font-display font-bold text-lg text-cocoa">Apretar Cachetes de Bubu</h3>
+          <p class="text-xs text-cocoa/75 mb-3">¡Tan suavecitos como los cachetitos de mi Daycita!</p>
+          <button onclick="squishBubuCheeks()" class="mt-auto w-full py-2 px-4 rounded-xl bg-berry hover:bg-berryDark text-white font-display font-semibold text-sm shadow transition active:scale-95">
+            ¡Pellizcar con amor! (<span id="cheeks-counter">0</span>)
+          </button>
+        </div>
+
+        <!-- Tarjeta 2: Termómetro de Amor por Dairyn -->
+        <div class="bg-cream rounded-2xl p-5 border border-gold/60 flex flex-col items-center text-center shadow-sm">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center text-3xl mb-3 shadow-inner">
+            💝
+          </div>
+          <h3 class="font-display font-bold text-lg text-cocoa">Medidor de Amor por Dairyn</h3>
+          <p class="text-xs text-cocoa/75 mb-3">Calculando cuánto ama Dudu a su Daycita hoy:</p>
+          <div class="w-full bg-white rounded-full h-4 border border-blushDeep overflow-hidden mb-2 p-0.5">
+            <div id="love-meter-bar" class="bg-gradient-to-r from-berry via-pink-500 to-gold h-full rounded-full transition-all duration-500" style="width: 100%"></div>
+          </div>
+          <div id="love-meter-value" class="font-display font-bold text-berry text-base mb-3">1,000,000% (¡Infinito!)</div>
+          <button onclick="boostLoveMeter()" class="mt-auto w-full py-2 px-4 rounded-xl bg-gold hover:bg-goldDark text-cocoa font-display font-bold text-sm shadow transition active:scale-95">
+            ¡Subir aún más el amor! 🚀
+          </button>
+        </div>
+
+        <!-- Tarjeta 3: Buzón Directo de Daycita para su Novio -->
+        <div class="bg-cream rounded-2xl p-5 border border-blushDeep flex flex-col items-center text-center shadow-sm">
+          <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center text-3xl mb-3 shadow-inner">
+            💌
+          </div>
+          <h3 class="font-display font-bold text-lg text-cocoa">Dejar Nota Rápida a tu Dudu</h3>
+          <p class="text-xs text-cocoa/75 mb-2">¿Se te antojó un chocolatito o un abrazo hoy? Escríbelo aquí:</p>
+          <div class="w-full space-y-2 mt-auto">
+            <input id="quick-wish-input" type="text" maxlength="100" placeholder="Ej: Hoy quiero muchos mimitos..." class="w-full px-3 py-2 rounded-xl bg-white border border-blushDeep text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-berry" />
+            <button onclick="saveQuickWish()" class="w-full py-2 px-4 rounded-xl bg-pine hover:bg-pineLight text-white font-display font-semibold text-sm shadow transition active:scale-95">
+              Guardar Deseo Navideño ✨
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA CON ACCESO DISCRETO AL MODO PRUEBA (PIN 2412) -->
+    <footer class="mt-12 text-center text-xs sm:text-sm text-cocoa/70 space-y-2 pb-6">
+      <p class="font-display font-medium text-cocoa">
+        Hecho con infinito amor para <strong>Dairyn (Daycita)</strong> 🎄 Bubu & Dudu Forever 🐾
+      </p>
+      <p class="text-xs">
+        Verificación de fecha real sincronizada con horario de Guatemala (1 al 24 de diciembre).
+      </p>
+      <div class="pt-2 flex justify-center items-center gap-3">
+        <button onclick="openPinUnlockModal()" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/70 hover:bg-white text-cocoa/60 hover:text-cocoa border border-blushDeep/50 text-xs transition">
+          <i class="ph-fill ph-lock-key"></i>
+          <span>Acceso Novio / Modo Prueba</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =====================================================================
+       MODAL 1: "¡ALTO AHÍ, DAYCITA! 🐾" (PUERTA BLOQUEADA ANTES DE FECHA)
+       ===================================================================== -->
+  <div id="locked-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-cocoa/60 backdrop-blur-sm">
+    <div class="bg-cream border-4 border-berry rounded-3xl max-w-md w-full p-6 shadow-2xl relative animate-[floatSlow_4s_ease-in-out_infinite]">
+      <!-- Botón cerrar -->
+      <button onclick="closeLockedModal()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-blush hover:bg-blushDeep text-berryDark flex items-center justify-center font-bold transition">
+        ✕
+      </button>
+
+      <div class="text-center space-y-3">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-berry/10 text-berry font-display font-bold text-xs uppercase tracking-wider">
+          🚨 Patrulla Navideña de Dudu 🚨
+        </div>
+
+        <h3 class="font-display text-2xl sm:text-3xl font-bold text-berry">
+          ¡Alto ahí, Daycita preciosa! 🐾
+        </h3>
+
+        <!-- Ilustración SVG de Dudu Policía Navideño y Bubu riéndose -->
+        <div id="locked-modal-svg" class="w-48 h-44 mx-auto select-none"></div>
+
+        <p id="locked-funny-message" class="text-sm sm:text-base text-cocoa font-semibold bg-white p-3.5 rounded-2xl border border-blushDeep shadow-inner"></p>
+
+        <!-- Contador exacto para ese día -->
+        <div class="bg-blush/60 rounded-2xl p-3 border border-blushDeep">
+          <div class="text-xs font-bold text-berryDark uppercase">
+            La Puerta del Día <span id="locked-day-num">1</span> se desbloquea en:
+          </div>
+          <div id="locked-specific-countdown" class="font-display text-lg sm:text-xl font-bold text-cocoa mt-1">
+            Calculando...
+          </div>
+        </div>
+
+        <button onclick="closeLockedModal()" class="w-full py-3 rounded-2xl bg-berry hover:bg-berryDark text-white font-display font-bold text-base shadow-lg transition transform active:scale-95">
+          ¡Está bien, esperaré portándome bien! 😇🤍
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 2: PUERTA ABIERTA (SORPRESA DEL DÍA, VALE Y MINI-DINÁMICA)
+       ===================================================================== -->
+  <div id="day-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-cocoa/65 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-cream border-4 border-gold rounded-3xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative my-auto max-h-[92vh] overflow-y-auto">
+      <!-- Botón cerrar -->
+      <button onclick="closeDayModal()" class="sticky top-1 float-right z-20 w-9 h-9 rounded-full bg-blush hover:bg-blushDeep text-berryDark flex items-center justify-center font-bold shadow transition">
+        ✕
+      </button>
+
+      <div class="text-center space-y-4 clear-both">
+        <!-- Encabezado del Día -->
+        <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-berry text-white font-display font-bold text-xs sm:text-sm shadow">
+          <span>🎄 DÍA <span id="modal-day-number">1</span> DE DICIEMBRE</span>
+          <span>•</span>
+          <span id="modal-day-tag">Sorpresa Desbloqueada</span>
+        </div>
+
+        <h2 id="modal-day-title" class="font-display text-2xl sm:text-3xl font-bold text-cocoa leading-snug"></h2>
+
+        <!-- Escena SVG personalizada de Bubu y Dudu -->
+        <div id="modal-day-svg" class="w-56 h-48 mx-auto bg-white rounded-3xl p-3 border-2 border-blushDeep shadow-inner flex items-center justify-center select-none"></div>
+
+        <!-- Mensaje Romántico para Daycita -->
+        <div class="bg-white rounded-2xl p-4 sm:p-5 border border-blushDeep shadow-sm text-left space-y-2">
+          <div class="font-script text-2xl text-berry">Para mi Daycita hermosa:</div>
+          <p id="modal-day-message" class="text-cocoa text-sm sm:text-base leading-relaxed"></p>
+          <div class="text-right font-script text-xl text-duduDark pt-1">Con todo mi amor, tu Dudu 🐻❤️</div>
+        </div>
+
+        <!-- MINI-DINÁMICA INTERACTIVA DEL DÍA (Rasca y Gana, Abrazos, etc.) -->
+        <div id="modal-interactive-slot" class="hidden"></div>
+
+        <!-- VALE NAVIDEÑO CANJEABLE DE BUBU Y DUDU -->
+        <div class="coupon-ticket rounded-2xl p-4 sm:p-5 shadow-md text-left">
+          <div class="flex items-center justify-between border-b border-dashed border-berry/40 pb-2 mb-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-berry flex items-center gap-1">
+              <i class="ph-fill ph-seal-check text-sm"></i> Vale Oficial de Bubu & Dudu
+            </span>
+            <span id="modal-coupon-code" class="text-[11px] font-mono font-bold bg-blush px-2 py-0.5 rounded text-berryDark">
+              #DAYCITA-01
+            </span>
+          </div>
+          <h4 id="modal-coupon-title" class="font-display text-lg sm:text-xl font-bold text-cocoa"></h4>
+          <p id="modal-coupon-desc" class="text-xs sm:text-sm text-cocoa/80 mt-1"></p>
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-blushDeep/50">
+            <span class="text-[11px] font-semibold text-pine flex items-center gap-1">
+              <i class="ph-fill ph-infinity text-sm"></i> Sin fecha de vencimiento para Dairyn
+            </span>
+            <button onclick="copyCouponToClipboard()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-berry hover:bg-berryDark text-white font-display font-semibold text-xs shadow transition active:scale-95">
+              <i class="ph-fill ph-copy"></i>
+              <span id="btn-copy-coupon-text">Copiar Vale para reclamarlo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- REACCIÓN Y NOTITA DE DAYCITA (SINCRONIZADO EN FIREBASE) -->
+        <div class="bg-blush/50 rounded-2xl p-4 border border-blushDeep text-left space-y-3">
+          <div class="flex items-center justify-between">
+            <h5 class="font-display font-bold text-sm text-berryDark flex items-center gap-1.5">
+              <span>💝</span> ¿Qué te pareció el regalo de hoy, Daycita?
+            </h5>
+            <span id="modal-opened-timestamp" class="text-[11px] text-cocoa/60 font-semibold"></span>
+          </div>
+
+          <!-- Botones de reacción rápida -->
+          <div class="flex flex-wrap gap-1.5" id="reaction-buttons-group">
+            <button onclick="selectDayReaction('¡Me encantó! 😍')" class="reaction-chip px-2.5 py-1 rounded-full bg-white hover:bg-berry hover:text-white text-xs font-semibold border border-blushDeep transition">¡Me encantó! 😍</button>
+            <button onclick="selectDayReaction('¡Quiero canjear mi vale ya! 🎟️')" class="reaction-chip px-2.5 py-1 rounded-full bg-white hover:bg-berry hover:text-white text-xs font-semibold border border-blushDeep transition">¡Quiero mi vale ya! 🎟️</button>
+            <button onclick="selectDayReaction('Te amo mi Dudu hermoso 🐻❤️')" class="reaction-chip px-2.5 py-1 rounded-full bg-white hover:bg-berry hover:text-white text-xs font-semibold border border-blushDeep transition">Te amo mi Dudu 🐻❤️</button>
+            <button onclick="selectDayReaction('Me dio mucha ternura 🥺🤍')" class="reaction-chip px-2.5 py-1 rounded-full bg-white hover:bg-berry hover:text-white text-xs font-semibold border border-blushDeep transition">¡Qué ternura! 🥺🤍</button>
+          </div>
+
+          <!-- Campo de nota de Daycita -->
+          <div class="flex gap-2">
+            <input id="daycita-note-input" type="text" maxlength="140" placeholder="Déjale una notita aquí a tu novio sobre este día..." class="flex-1 px-3 py-2 rounded-xl bg-white border border-blushDeep text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-berry" />
+            <button onclick="saveDaycitaNoteForCurrentDay()" class="px-4 py-2 rounded-xl bg-pine hover:bg-pineLight text-white font-display font-semibold text-xs sm:text-sm shadow transition active:scale-95">
+              Guardar 💾
+            </button>
+          </div>
+          <p id="note-saved-feedback" class="text-xs font-bold text-pine hidden">¡Tu respuesta quedó guardada en el corazón de Dudu! ✨</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 3: BILLETERA DE VALES DESBLOQUEADOS DE DAYCITA
+       ===================================================================== -->
+  <div id="wallet-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-cocoa/60 backdrop-blur-sm">
+    <div class="bg-cream border-4 border-gold rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[88vh] flex flex-col">
+      <button onclick="closeCouponsWalletModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-blush hover:bg-blushDeep text-berryDark flex items-center justify-center font-bold">
+        ✕
+      </button>
+
+      <div class="text-center mb-4">
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-cocoa font-display font-bold text-xs border border-gold">
+          🎟️ Billetera Oficial de Dairyn
+        </span>
+        <h3 class="font-display text-2xl sm:text-3xl font-bold text-cocoa mt-1">
+          Mis Vales Navideños de Bubu y Dudu
+        </h3>
+        <p class="text-xs sm:text-sm text-cocoa/75">
+          Aquí aparecen todos los vales de los días que ya has desbloqueado. ¡Puedes cobrarlos cuando quieras!
+        </p>
+      </div>
+
+      <div id="wallet-coupons-list" class="flex-1 overflow-y-auto space-y-3 pr-1">
+        <!-- Lista dinámica de vales -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL 4: CARTA DE BIENVENIDA & PIN DE MODO PRUEBA / PANEL NOVIO
+       ===================================================================== -->
+  <div id="utility-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-cocoa/60 backdrop-blur-sm">
+    <div class="bg-cream border-4 border-blushDeep rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto">
+      <button onclick="closeUtilityModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-blush hover:bg-blushDeep text-berryDark flex items-center justify-center font-bold">
+        ✕
+      </button>
+      <div id="utility-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast de notificaciones tiernas -->
+  <div id="cute-toast" class="fixed bottom-5 right-5 z-[95] hidden max-w-sm bg-white border-2 border-berry rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3">
+    <span id="cute-toast-icon" class="text-2xl">🐻‍❄️</span>
+    <p id="cute-toast-text" class="text-xs sm:text-sm font-bold text-cocoa"></p>
+  </div>
+
+  <!-- =====================================================================
+       LÓGICA PRINCIPAL + FIREBASE FIRESTORE + SVG + WEB AUDIO API
+       ===================================================================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    /* =========================================================================
+       1. CONFIGURACIÓN DE FIREBASE (LISTA PARA TU PROYECTO O ESTE ENTORNO)
+       =========================================================================
+       PASO IMPORTANTE SI SUBES ESTE ARCHIVO A TU PROPIO HOSTING (Netlify/Vercel/GitHub):
+       Reemplaza `null` en `MI_FIREBASE_CONFIG_PERSONAL` con el objeto `firebaseConfig`
+       que te da la consola de Firebase (lo explico paso a paso en el chat).
+    ========================================================================= */
+    const MI_FIREBASE_CONFIG_PERSONAL ={
+  apiKey: "AIzaSyD-FKFwd8XcuCEYUnPmbUkegmALPTY3-Q4",
+  authDomain: "adviento-daycita.firebaseapp.com",
+  projectId: "adviento-daycita",
+  storageBucket: "adviento-daycita.firebasestorage.app",
+  messagingSenderId: "380355604992",
+  appId: "1:380355604992:web:d72f592e32de632df1dee5",
+  measurementId: "G-RHJ6FJK5EV"
+};
+    /* Ejemplo de cómo se ve cuando lo pegas:
+    const MI_FIREBASE_CONFIG_PERSONAL = {
+      apiKey: "AIzaSy...",
+      authDomain: "calendario-daycita.firebaseapp.com",
+      projectId: "calendario-daycita",
+      storageBucket: "calendario-daycita.firebasestorage.app",
+      messagingSenderId: "123456789",
+      appId: "1:123456789:web:abcdef"
+    };
+    */
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'calendario-adviento-daycita';
+    let firebaseConfig = MI_FIREBASE_CONFIG_PERSONAL;
+
+    if (!firebaseConfig && typeof __firebase_config !== 'undefined' && __firebase_config) {
+      try {
+        firebaseConfig = JSON.parse(__firebase_config);
+      } catch (e) {
+        console.warn("No se pudo leer __firebase_config:", e);
+      }
+    }
+
+    let app = null;
+    let db = null;
+    let auth = null;
+    let currentUser = null;
+
+    /* =========================================================================
+       2. ESTADO EN MEMORIA DE LA APLICACIÓN
+    ========================================================================= */
+    const state = {
+      openedDays: {}, // { "1": { openedAt: "...", reaction: "...", note: "..." } }
+      globalHugs: 0,
+      cheeksSquished: 0,
+      wishes: [],
+      testMode: false, // Si es true, permite abrir cualquier día (Modo Prueba Novio)
+      secretStarClicks: 0,
+      activeModalDay: null,
+      selectedReaction: '',
+      // Reloj sincronizado con America/Guatemala
+      timeOffsetMs: 0,
+      timeSyncedOnline: false,
+      musicPlaying: false
+    };
+
+    /* =========================================================================
+       3. DATOS DE LOS 24 DÍAS DE ADVIENTO PARA DAYCITA (DAIRYN)
+    ========================================================================= */
+    const ADVENT_DAYS = [
+      {
+        day: 1,
+        title: "¡Bienvenida a Diciembre, mi Daycita preciosa!",
+        tag: "Comienza la Magia ✨",
+        scene: "header_hug",
+        sticker: "🎅",
+        message: "¡Feliz 1 de diciembre, mi Dairyn hermosa! Hoy empieza oficialmente nuestra cuenta regresiva para Navidad. Quise crearte este calendario de Bubu y Dudu porque tú eres exactamente como Bubu para mí: tierna, blanquita, preciosa y el centro de mi mundo. Cada día tendrás una sorpresa nueva hecha con todo mi amor.",
+        couponTitle: "Vale por un Chocolate Caliente & Pan Dulce con tu Dudu ☕🥐",
+        couponDesc: "Canjeable por una tarde calentita tomando chocolate o tu bebida favorita mientras te abrazo fuerte.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 2,
+        title: "Los Cachetitos más Lindos del Polo Norte",
+        tag: "Ternura Nivel Mil 🐾",
+        scene: "cheek_squish",
+        sticker: "🐻‍❄️",
+        message: "Dice Dudu que buscó por todo el Polo Norte y confirmó que nadie tiene unos cachetitos y una sonrisa tan hermosa como los de mi Daycita. Gracias por alegrar mis días con solo existir, mi niña linda.",
+        couponTitle: "Vale por 100 Besitos en los Cachetes y la Frente 💋",
+        couponDesc: "Se entregan todos seguidos sin derecho a escaparse hasta que te dé risa.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 PREMIO EXTRA: ¡Masajito de manos y piojito en el pelo por 20 minutos!"
+      },
+      {
+        day: 3,
+        title: "Noche de Pelis bajo la Cobijita",
+        tag: "Plan de Ositos 🍿",
+        scene: "movie_night",
+        sticker: "🎬",
+        message: "Cuando hace frío en diciembre, el único lugar donde quiero estar es envuelto en una cobija contigo, igualito que Bubu y Dudu viendo películas. Tú eliges qué vemos hoy, yo pongo las palomitas y los abrazos.",
+        couponTitle: "Vale por Maratón de tu Serie o Película Favorita 🍿🎬",
+        couponDesc: "Tú tienes el control absoluto de la tele y yo te llevo tus snacks favoritos a la cama o al sillón.",
+        interactiveType: "none"
+      },
+      {
+        day: 4,
+        title: "El Antojito Oficial de mi Princesa",
+        tag: "Barriguita Feliz 🍓",
+        scene: "hot_cocoa",
+        sticker: "🍰",
+        message: "Sabes que a Bubu le encanta comer cositas ricas y que Dudu siempre la consiente en todo... pues así mismito me encanta consentirte a ti, mi Daycita. Hoy celebramos que eres la novia más dulce del universo.",
+        couponTitle: "Vale por tu Postre o Antojito Favorito 🍨🍓",
+        couponDesc: "Dime qué dulce, helado o pastelito se te antoja y tu Dudu va por él sin hacer preguntas.",
+        interactiveType: "none"
+      },
+      {
+        day: 5,
+        title: "A Caballito por la Nieve con mi Daycita",
+        tag: "Aventura Juntos ❄️",
+        scene: "piggyback",
+        sticker: "⛄",
+        message: "Contigo cualquier camino es bonito, Dairyn. Me encanta cuidarte, llevarte de la mano y sentir que somos el mejor equipo del mundo. Si algún día te cansas, recuerda que tu osito Dudu siempre te carga.",
+        couponTitle: "Vale por Llevarte a Caballito y Sacarte 10 Fotos Lindas 📸",
+        couponDesc: "Sesión de fotos oficial donde yo soy tu fotógrafo personal hasta que te encanten todas.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 6,
+        title: "Recarga de Energía para mi Niña",
+        tag: "Mimos Exclusivos ✨",
+        scene: "header_hug",
+        sticker: "💆‍♀️",
+        message: "Sé que a veces los días son ocupados o cansados, así que el regalo del día 6 es pura paz y mimitos para mi Daycita. Quiero que siempre te sientas cuidada, tranquila y súper amada a mi lado.",
+        couponTitle: "Vale por un Masajito Relajante de Espalda y Hombros 💆‍♀️🌸",
+        couponDesc: "25 minutos de masajito hecho con todo el cariño por tu Dudu para quitarte cualquier estrés.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 BONUS SECRETO: ¡Incluye piojito hasta que te quedes dormidita!"
+      },
+      {
+        day: 7,
+        title: "Día de las Velitas y Luces Mágicas",
+        tag: "Brillas Precioso 🌟",
+        scene: "christmas_eve",
+        sticker: "🕯️",
+        message: "Entre todas las lucecitas navideñas de diciembre, mis ojos siempre se quedan viéndote a ti, Dairyn. Tienes una luz tan bonita que hace que todo a tu alrededor se sienta como hogar.",
+        couponTitle: "Vale por un Paseo Nocturno para ver Luces Navideñas 🎄✨",
+        couponDesc: "Salir agarraditos de la mano a ver decoraciones navideñas y comer algo rico.",
+        interactiveType: "none"
+      },
+      {
+        day: 8,
+        title: "Abrazos que Quitan Cualquier Frío",
+        tag: "Calorcito de Oso 🧣",
+        scene: "header_hug",
+        sticker: "🧣",
+        message: "Los científicos del Polo Norte comprobaron que un abrazo de Dudu a su Bubu sube la temperatura del corazón en 3 segundos. ¡Nunca pases frío teniendo a tu novio listo para abrazarte!",
+        couponTitle: "Vale por un 'Abrazo de Koala' de 5 Minutos Sin Soltarte 🐨❤️",
+        couponDesc: "Válido en cualquier momento en que digas la palabra clave: 'Dudu, tengo frío'.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 9,
+        title: "Razones por las que Amo a Daycita",
+        tag: "Mi Persona Favorita 💌",
+        scene: "gift_surprise",
+        sticker: "💝",
+        message: "Amo tu risa, amo cómo me miras, amo tu ternura, amo decirte Daycita y amo cada segundo que compartimos. Eres mi casualidad más bonita y mi certeza favorita, Dairyn.",
+        couponTitle: "Vale por un 'SÍ A TODO' durante medio día 👑",
+        couponDesc: "Durante toda una tarde, lo que Daycita proponga hacer o comer es ley oficial.",
+        interactiveType: "none"
+      },
+      {
+        day: 10,
+        title: "Cena Especial para Dos Ositos",
+        tag: "Cita Romántica 🍕",
+        scene: "hot_cocoa",
+        sticker: "🍔",
+        message: "Ya vamos por el día 10 de diciembre, mi amor. Y como a Bubu y Dudu les encanta compartir comidita rica, hoy tu regalo es una invitación directa para consentir tu pancita.",
+        couponTitle: "Vale por Invitarte tu Comida Favorita Completa 🍕🍔🍣",
+        couponDesc: "Tú eliges el lugar o el menú (hamburguesa, pizza, tacos, sushi o lo que quieras) y tu Dudu invita.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 EXTRA DE DUDU: ¡Tienes derecho a robarme las papitas más ricas de mi plato!"
+      },
+      {
+        day: 11,
+        title: "Tu Canción y Mi Corazón",
+        tag: "Melodía de Amor 🎶",
+        scene: "piggyback",
+        sticker: "🎵",
+        message: "Cada vez que escucho una canción bonita pienso en ti, Daycita. Gracias por ponerle música y alegría a mi vida todos los días del año.",
+        couponTitle: "Vale por Bailar Abrazaditos una Canción Lenta en la Sala 🎶💃",
+        couponDesc: "Aunque no haya fiesta, ponemos nuestra canción y bailamos pegaditos con muchos besos.",
+        interactiveType: "none"
+      },
+      {
+        day: 12,
+        title: "¡Mitad del Camino hacia Navidad!",
+        tag: "Día 12 Especial 🎉",
+        scene: "gift_surprise",
+        sticker: "🎀",
+        message: "¡Ya abriste la mitad del calendario, mi Daycita hermosa! Qué emoción estar viviendo este diciembre contigo. Cada día que pasa te amo todavía más que el anterior.",
+        couponTitle: "Vale por un Detallito Sorpresa Extra de Mitad de Mes 🎁✨",
+        couponDesc: "Muéstrale captura de este vale a tu novio para reclamar un dulcito o detallito sorpresa.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 13,
+        title: "Paciencia y Amor contra los Días Grises",
+        tag: "Siempre Contigo 🌈",
+        scene: "cheek_squish",
+        sticker: "🧸",
+        message: "Igual que Dudu siempre escucha y abraza a Bubu cuando hace puchero, yo siempre voy a estar para escucharte, apoyarte y sacarte una sonrisa cuando lo necesites, mi Dairyn.",
+        couponTitle: "Vale por 'Cero Enojos + Mil Mimitos' Instantáneos 🏳️🤍",
+        couponDesc: "Comodín mágico para cambiar cualquier momento de estrés por besitos y abrazos al instante.",
+        interactiveType: "none"
+      },
+      {
+        day: 14,
+        title: "UnSuéter con Olor a tu Dudu",
+        tag: "Modo Consentida 🧥",
+        scene: "movie_night",
+        sticker: "🧥",
+        message: "Sabes que a Bubu le encanta ponerse la ropa de Dudu porque le queda grandota y calentita... ¡y a mí me encanta cómo te ves con mis suéteres, mi Daycita preciosa!",
+        couponTitle: "Vale por Prestarte mi Suéter/Hoodie Favorito con mi Perfume 🧥✨",
+        couponDesc: "Recién perfumado para que sientas que te estoy abrazando toda la noche.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 SECRETO: ¡No tienes que devolvérmelo hasta que se le vaya el olor!"
+      },
+      {
+        day: 15,
+        title: "Pijamada Navideña de Ositos",
+        tag: "Noche Mágica 🌙",
+        scene: "movie_night",
+        sticker: "🌟",
+        message: "Faltan solo 9 días para Nochebuena, mi vida. Quiero que guardemos miles de recuerdos bonitos este diciembre riéndonos hasta tarde.",
+        couponTitle: "Vale por Noche de Juegos, Chismecito y Dulces Navideños 🎲🍬",
+        couponDesc: "Una tarde/noche dedicada al 100% a reírnos, platicar de todo y comer chucherías.",
+        interactiveType: "none"
+      },
+      {
+        day: 16,
+        title: "Empiezan las Posadas y el Amor Crece",
+        tag: "16 de Diciembre 🏮",
+        scene: "hot_cocoa",
+        sticker: "🎇",
+        message: "En Guatemala hoy empieza el ambiente más lindo de diciembre, con ponche, lucecitas y frío rico... pero mi tradición favorita siempre será abrazarte a ti, Daycita.",
+        couponTitle: "Vale por Tomar Ponche / Café Calientito Juntos 🍵🎄",
+        couponDesc: "Con derecho a que yo te caliente las manitas con las mías toda la noche.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 17,
+        title: "Mirarte es Mi Regalo Favorito",
+        tag: "Ojos Bonitos 😍",
+        scene: "cheek_squish",
+        sticker: "✨",
+        message: "A veces me quedo viéndote como Dudu mira a Bubu: totalmente enamorado y preguntándome qué hice tan bien para tener una novia tan preciosa como Dairyn.",
+        couponTitle: "Vale por 20 Cumplidos Seguidos Mirándote a los Ojos 💖",
+        couponDesc: "Para recordarte una por una todas las cosas que me vuelven loco de ti.",
+        interactiveType: "none"
+      },
+      {
+        day: 18,
+        title: "Desayuno o Merienda de Reyes",
+        tag: "Día 18 Delicioso 🥞",
+        scene: "hot_cocoa",
+        sticker: "🥞",
+        message: "Mi Daycita merece ser tratada como la reina que es todos los días. Hoy Bubu y Dudu prepararon este vale especial para consentirte temprano o por la tarde.",
+        couponTitle: "Vale por un Desayuno o Refacción Especial Invitada por Dudu 🥞☕",
+        couponDesc: "Para empezar o terminar el día con la pancita llena y el corazón contento.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 PREMIO EXTRA: ¡Doble porción de postre o fruta rica!"
+      },
+      {
+        day: 19,
+        title: "Nuestro Futuro Lleno de Navidades",
+        tag: "Para Siempre 🏡",
+        scene: "piggyback",
+        sticker: "🎄",
+        message: "Esta Navidad es hermosa, pero me ilusiona todavía más pensar en todas las Navidades que nos faltan por vivir juntos, armando nuestro propio arbolito como Bubu y Dudu.",
+        couponTitle: "Vale por Cumplir un Caprichito Navideño de Daycita 🛍️💝",
+        couponDesc: "Un antojito o caprichito especial que quieras hacer realidad esta semana.",
+        interactiveType: "none"
+      },
+      {
+        day: 20,
+        title: "Cuenta Regresiva Final: ¡4 Días!",
+        tag: "Emoción Total 🔔",
+        scene: "gift_surprise",
+        sticker: "🔔",
+        message: "¡Ya casi es Navidad, mi amor! Gracias por abrir cada puertita con tanta ilusión. Hacerte feliz a ti es lo que más feliz me hace a mí en este mundo.",
+        couponTitle: "Vale por Lluvia Infinita de Besos y Cosquillas de Oso 🐻💋",
+        couponDesc: "Advertencia: incluye ataques de risa garantizados por Dudu.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 21,
+        title: "La Estrella Más Brillante del Árbol",
+        tag: "Mi Luz 🌠",
+        scene: "christmas_eve",
+        sticker: "⭐",
+        message: "Ni la estrella más grande del árbol de Navidad brilla tan bonito como tus ojitos cuando sonríes, mi Dairyn preciosa. Te amo con toda mi alma.",
+        couponTitle: "Vale por una Cita Sorpresa Planeada de Principio a Fin por Mí 🌹✨",
+        couponDesc: "Tú solo te pones aún más hermosa de lo que ya eres y yo me encargo de todo el plan.",
+        interactiveType: "none"
+      },
+      {
+        day: 22,
+        title: "Carta Hecha a Mano con el Corazón",
+        tag: "Amor Eterno 📜",
+        scene: "header_hug",
+        sticker: "💌",
+        message: "A solo dos días de Nochebuena, quiero que recuerdes siempre que en mí tienes a tu compañero, tu mejor amigo, tu admirador número uno y tu osito Dudu incondicional.",
+        couponTitle: "Vale por una Carta de Amor Escrita a Mano + Flor para Daycita 🌷✉️",
+        couponDesc: "Para que la guardes en tu cajita de recuerdos especiales.",
+        interactiveType: "scratch_card",
+        scratchSecret: "🎁 PROMESA: ¡Amarte, respetarte y cuidarte todos los días de mi vida!"
+      },
+      {
+        day: 23,
+        title: "¡Víspera de Nochebuena, mi Daycita!",
+        tag: "23 de Diciembre 🦌",
+        scene: "gift_surprise",
+        sticker: "🦌",
+        message: "¡Mañana es 24, mi vida! Dudu ya casi llega al final del caminito para darle el abrazo más grande del año a su Bubu. Prepárate porque mañana se desbloquea la gran sorpresa final.",
+        couponTitle: "Vale por el Primer Gran Abrazo de Nochebuena 🤗🎄",
+        couponDesc: "Un abrazo eterno donde te susurre al oído cuánto te amo.",
+        interactiveType: "hug_burst"
+      },
+      {
+        day: 24,
+        title: "¡FELIZ NOCHEBUENA Y NAVIDAD, MI DAYCITA AMADA! 🎄❤️",
+        tag: "Gran Final de Nochebuena 🎆",
+        scene: "christmas_eve",
+        sticker: "👑",
+        message: "¡Llegamos al 24 de diciembre, mi Dairyn preciosa! Gracias por ser el regalo más hermoso que Dios y la vida me han dado. No necesito pedirle nada a Santa porque tener tu amor, tu ternura y tu compañía ya lo es todo para mí. Que esta Navidad y todas las que vengan nos encuentren siempre así: unidos, enamorados y cuidándonos como Bubu y Dudu. ¡Te amo infinitamente, mi Daycita!",
+        couponTitle: "GRAN VALE DORADO: Amor Infinito + Tu Regalo Real de Navidad 🎁👑💖",
+        couponDesc: "Vale supremo de Nochebuena por mi corazón entero y una sorpresa muy especial en persona para mi Dairyn.",
+        interactiveType: "grand_finale"
+      }
+    ];
+
+    /* Mensajes divertidos cuando Daycita intenta abrir una puerta antes de tiempo */
+    const FUNNY_LOCKED_MESSAGES = [
+      "¡Oye, Daycita curiosa! 🐾 Dudu Guardia Real reporta que aún no es este día. ¡Guarda esas manitas!",
+      "¡Bubu y Dudu te vieron intentando hacer trampa, Dairyn! 👀 Toca esperar al día correcto con paciencia de osita buena.",
+      "¡Piip piip! 🚨 Alerta de novia hermosa tratando de abrir su regalo antes de tiempo. ¡Dudu puso doble candado de chocolate!",
+      "¡Jajaja, casi lo logras, mi Daycita! Pero la magia navideña solo abre esta puertita cuando el reloj de Guatemala marque su día.",
+      "Dice Dudu que por cada intento de abrir antes de fecha, le debes 5 besitos extra a tu novio. 😘🐻"
+    ];
+
+    /* =========================================================================
+       4. ILUSTRACIONES SVG PERSONALIZADAS DE BUBU (BLANCA) Y DUDU (CAFÉ)
+    ========================================================================= */
+    function getBubuDuduSVG(sceneType = 'header_hug') {
+      // Bubu es 100% BLANCA (#FFFFFF) con orejitas oscuras (#4A3222) y mejillas rosadas (#FF9EBB)
+      // Dudu es CAFÉ/CARAMELO (#C68B59) con orejitas café oscuro (#8C5830) y trompita crema (#FFF3E6)
+      switch (sceneType) {
+        case 'guard_stop':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="190" rx="105" ry="12" fill="#FFE4EC"/>
+            <!-- Bubu asomándose atrás riéndose (BLANCA) -->
+            <g transform="translate(155, 58)">
+              <circle cx="20" cy="18" r="11" fill="#4A3222"/>
+              <circle cx="76" cy="18" r="11" fill="#4A3222"/>
+              <ellipse cx="48" cy="48" rx="38" ry="34" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="48" cy="95" rx="30" ry="26" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <!-- Ojitos felices cerrados de risa -->
+              <path d="M31 44 Q36 37 41 44" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M55 44 Q60 37 65 44" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Cachetes rosados -->
+              <ellipse cx="26" cy="53" rx="7" ry="4.5" fill="#FF9EBB"/>
+              <ellipse cx="70" cy="53" rx="7" ry="4.5" fill="#FF9EBB"/>
+              <!-- Manita tapándose la risa -->
+              <ellipse cx="48" cy="56" rx="9" ry="7" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.5"/>
+              <!-- Moñito rojo de Bubu -->
+              <path d="M48 16 L36 8 L38 22 Z M48 16 L60 8 L58 22 Z" fill="#D4243E" stroke="#4A3222" stroke-width="2"/>
+              <circle cx="48" cy="16" r="3.5" fill="#E5B869"/>
+            </g>
+
+            <!-- Dudu Guardia Navideño al frente (CAFÉ) -->
+            <g transform="translate(42, 38)">
+              <circle cx="24" cy="26" r="13" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="92" cy="26" r="13" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <!-- Cuerpo y Cabeza Café de Dudu -->
+              <ellipse cx="58" cy="112" rx="38" ry="34" fill="#C68B59" stroke="#4A3222" stroke-width="3.2"/>
+              <ellipse cx="58" cy="60" rx="46" ry="40" fill="#C68B59" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Gorra de Guardia Navideño -->
+              <path d="M24 30 Q58 6 92 30 Z" fill="#1E5631" stroke="#4A3222" stroke-width="3"/>
+              <rect x="20" y="27" width="76" height="8" rx="4" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+              <circle cx="58" cy="20" r="6" fill="#E5B869" stroke="#4A3222" stroke-width="2"/>
+              <!-- Ojos tiernos pero firmes -->
+              <circle cx="41" cy="56" r="4.5" fill="#4A3222"/>
+              <circle cx="75" cy="56" r="4.5" fill="#4A3222"/>
+              <circle cx="39.5" cy="54.5" r="1.5" fill="#FFFFFF"/>
+              <circle cx="73.5" cy="54.5" r="1.5" fill="#FFFFFF"/>
+              <!-- Cejas de guardia -->
+              <path d="M34 46 L46 49" stroke="#4A3222" stroke-width="3" stroke-linecap="round"/>
+              <path d="M82 46 L70 49" stroke="#4A3222" stroke-width="3" stroke-linecap="round"/>
+              <!-- Mejillas y Trompita -->
+              <ellipse cx="29" cy="65" rx="8" ry="5" fill="#FF8FA3" opacity="0.75"/>
+              <ellipse cx="87" cy="65" rx="8" ry="5" fill="#FF8FA3" opacity="0.75"/>
+              <ellipse cx="58" cy="66" rx="14" ry="11" fill="#FFF3E6"/>
+              <ellipse cx="58" cy="62" rx="4.5" ry="3.2" fill="#4A3222"/>
+              <path d="M53 69 Q58 73 63 69" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Bufanda navideña -->
+              <path d="M26 92 Q58 104 90 92 L86 104 Q58 114 30 104 Z" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+              <!-- Letrero de ALTO con bastón de caramelo -->
+              <rect x="98" y="64" width="6" height="75" rx="3" fill="#FFFFFF" stroke="#D4243E" stroke-width="2.5"/>
+              <polygon points="101,34 118,42 125,58 118,74 101,82 84,74 77,58 84,42" fill="#D4243E" stroke="#FFFFFF" stroke-width="3"/>
+              <text x="101" y="62" text-anchor="middle" fill="#FFFFFF" font-family="Fredoka" font-weight="700" font-size="11">¡ALTO!</text>
+            </g>
+          </svg>`;
+
+        case 'cheek_squish':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="188" rx="105" ry="12" fill="#FFE4EC"/>
+            <!-- Dudu (CAFÉ) abrazando y apretando los cachetes de Bubu (BLANCA) -->
+            <g transform="translate(38, 42)">
+              <circle cx="26" cy="24" r="12" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="86" cy="24" r="12" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="56" cy="108" rx="35" ry="32" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="56" cy="60" rx="43" ry="38" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="42" cy="55" r="4" fill="#4A3222"/>
+              <circle cx="72" cy="55" r="4" fill="#4A3222"/>
+              <ellipse cx="30" cy="64" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="82" cy="64" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="57" cy="64" rx="13" ry="10" fill="#FFF3E6"/>
+              <ellipse cx="57" cy="60" rx="4" ry="3" fill="#4A3222"/>
+              <path d="M51 66 Q57 72 63 66" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Bubu (BLANCA) con súper cachetotes espachurrados de amor -->
+            <g transform="translate(128, 48)">
+              <circle cx="24" cy="20" r="12" fill="#4A3222"/>
+              <circle cx="86" cy="20" r="12" fill="#4A3222"/>
+              <ellipse cx="55" cy="104" rx="34" ry="30" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <!-- Cara blanca ultra cachetona -->
+              <path d="M12 56 C8 25, 102 25, 98 56 C108 78, 88 96, 55 94 C22 96, 2 78, 12 56 Z" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <!-- Ojitos tiernos > < -->
+              <path d="M35 50 L43 55 L35 60" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M75 50 L67 55 L75 60" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <!-- Cachetes gigantes rosados -->
+              <ellipse cx="24" cy="68" rx="11" ry="7.5" fill="#FF9EBB"/>
+              <ellipse cx="86" cy="68" rx="11" ry="7.5" fill="#FF9EBB"/>
+              <!-- Boquita espachurrada '3' -->
+              <circle cx="55" cy="60" r="3.5" fill="#4A3222"/>
+              <path d="M51 67 Q55 64 59 67 Q55 71 51 67 Z" fill="#FF8FA3" stroke="#4A3222" stroke-width="2"/>
+              <!-- Manita café de Dudu apretando el cachete de Bubu -->
+              <ellipse cx="14" cy="68" rx="11" ry="8" fill="#C68B59" stroke="#4A3222" stroke-width="2.8"/>
+            </g>
+            <text x="140" y="32" text-anchor="middle" font-size="22">💕 ✨ 💕</text>
+          </svg>`;
+
+        case 'hot_cocoa':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="190" rx="110" ry="12" fill="#FFE4EC"/>
+            <!-- Dudu (CAFÉ) con taza -->
+            <g transform="translate(36, 48)">
+              <circle cx="22" cy="20" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="80" cy="20" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="51" cy="100" rx="34" ry="30" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="51" cy="54" rx="41" ry="36" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="37" cy="50" r="4" fill="#4A3222"/>
+              <circle cx="65" cy="50" r="4" fill="#4A3222"/>
+              <ellipse cx="26" cy="58" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="76" cy="58" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="51" cy="58" rx="12" ry="9" fill="#FFF3E6"/>
+              <ellipse cx="51" cy="55" rx="3.8" ry="2.8" fill="#4A3222"/>
+              <path d="M46 61 Q51 66 56 61" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Taza Roja -->
+              <rect x="42" y="84" width="26" height="28" rx="5" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+              <ellipse cx="55" cy="85" rx="11" ry="3.5" fill="#FFF8F2"/>
+            </g>
+            <!-- Bubu (BLANCA) con taza y gorrito -->
+            <g transform="translate(142, 48)">
+              <circle cx="22" cy="20" r="11" fill="#4A3222"/>
+              <circle cx="80" cy="20" r="11" fill="#4A3222"/>
+              <ellipse cx="51" cy="100" rx="34" ry="30" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="51" cy="54" rx="41" ry="36" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="37" cy="50" r="4" fill="#4A3222"/>
+              <circle cx="65" cy="50" r="4" fill="#4A3222"/>
+              <ellipse cx="25" cy="58" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="77" cy="58" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="51" cy="55" rx="3.8" ry="2.8" fill="#4A3222"/>
+              <path d="M46 61 Q51 66 56 61" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Taza Verde -->
+              <rect x="28" y="84" width="26" height="28" rx="5" fill="#1E5631" stroke="#4A3222" stroke-width="2.5"/>
+              <ellipse cx="41" cy="85" rx="11" ry="3.5" fill="#FFF8F2"/>
+            </g>
+            <text x="140" y="36" text-anchor="middle" font-size="22">☕ ❤️ 🥐</text>
+          </svg>`;
+
+        case 'movie_night':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="190" rx="112" ry="12" fill="#FFE4EC"/>
+            <!-- Cobija gigante navideña que envuelve a Bubu y Dudu juntos -->
+            <path d="M42 165 C35 90, 245 90, 238 165 Z" fill="#D4243E" stroke="#4A3222" stroke-width="3.2"/>
+            <!-- Cabeza de Dudu (CAFÉ) -->
+            <g transform="translate(52, 48)">
+              <circle cx="20" cy="18" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="76" cy="18" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="48" cy="52" rx="40" ry="35" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="35" cy="48" r="4" fill="#4A3222"/>
+              <circle cx="62" cy="48" r="4" fill="#4A3222"/>
+              <ellipse cx="24" cy="56" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="72" cy="56" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="48" cy="56" rx="12" ry="9" fill="#FFF3E6"/>
+              <ellipse cx="48" cy="53" rx="3.5" ry="2.5" fill="#4A3222"/>
+              <path d="M43 59 Q48 64 53 59" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Cabeza de Bubu (BLANCA) recostada en el hombro de Dudu -->
+            <g transform="translate(134, 52) rotate(-6)">
+              <circle cx="20" cy="18" r="11" fill="#4A3222"/>
+              <circle cx="76" cy="18" r="11" fill="#4A3222"/>
+              <ellipse cx="48" cy="52" rx="40" ry="35" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="35" cy="48" r="4" fill="#4A3222"/>
+              <circle cx="62" cy="48" r="4" fill="#4A3222"/>
+              <ellipse cx="24" cy="56" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="72" cy="56" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="48" cy="53" rx="3.5" ry="2.5" fill="#4A3222"/>
+              <path d="M43 59 Q48 64 53 59" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Cubeta de palomitas en el centro -->
+            <rect x="118" y="125" width="44" height="42" rx="6" fill="#FFF8F2" stroke="#4A3222" stroke-width="2.8"/>
+            <rect x="126" y="125" width="8" height="42" fill="#D4243E"/>
+            <rect x="146" y="125" width="8" height="42" fill="#D4243E"/>
+            <circle cx="128" cy="122" r="7" fill="#FFE082" stroke="#4A3222" stroke-width="2"/>
+            <circle cx="140" cy="119" r="8" fill="#FFE082" stroke="#4A3222" stroke-width="2"/>
+            <circle cx="152" cy="122" r="7" fill="#FFE082" stroke="#4A3222" stroke-width="2"/>
+            <text x="140" y="34" text-anchor="middle" font-size="20">🎬 🍿 💕</text>
+          </svg>`;
+
+        case 'piggyback':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="192" rx="95" ry="11" fill="#FFE4EC"/>
+            <!-- Bubu (BLANCA) arriba en la espalda de Dudu -->
+            <g transform="translate(88, 16)">
+              <circle cx="22" cy="18" r="11" fill="#4A3222"/>
+              <circle cx="80" cy="18" r="11" fill="#4A3222"/>
+              <ellipse cx="51" cy="50" rx="40" ry="34" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <path d="M34 46 Q39 40 44 46" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <path d="M58 46 Q63 40 68 46" stroke="#4A3222" stroke-width="3" fill="none" stroke-linecap="round"/>
+              <ellipse cx="25" cy="55" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="77" cy="55" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="51" cy="52" rx="3.5" ry="2.5" fill="#4A3222"/>
+              <path d="M46 58 Q51 63 56 58" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <!-- Dudu (CAFÉ) abajo cargando a Bubu feliz -->
+            <g transform="translate(84, 78)">
+              <circle cx="22" cy="20" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="88" cy="20" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="55" cy="86" rx="36" ry="26" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="55" cy="52" rx="43" ry="36" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="40" cy="48" r="4" fill="#4A3222"/>
+              <circle cx="70" cy="48" r="4" fill="#4A3222"/>
+              <ellipse cx="28" cy="56" rx="7.5" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="82" cy="56" rx="7.5" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="55" cy="56" rx="13" ry="9.5" fill="#FFF3E6"/>
+              <ellipse cx="55" cy="53" rx="3.8" ry="2.8" fill="#4A3222"/>
+              <path d="M49 59 Q55 65 61 59" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Bracitos blancos de Bubu abrazando el cuello de Dudu -->
+              <ellipse cx="26" cy="24" rx="14" ry="8" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.8" transform="rotate(20 26 24)"/>
+              <ellipse cx="84" cy="24" rx="14" ry="8" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.8" transform="rotate(-20 84 24)"/>
+            </g>
+          </svg>`;
+
+        case 'gift_surprise':
+          return `
+          <svg viewBox="0 0 280 210" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="140" cy="192" rx="100" ry="11" fill="#FFE4EC"/>
+            <!-- Bubu (BLANCA) saliendo de una caja de regalo gigante con Dudu al lado -->
+            <g transform="translate(52, 26)">
+              <circle cx="22" cy="20" r="11" fill="#4A3222"/>
+              <circle cx="78" cy="20" r="11" fill="#4A3222"/>
+              <ellipse cx="50" cy="52" rx="39" ry="34" fill="#FFFFFF" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="37" cy="48" r="4" fill="#4A3222"/>
+              <circle cx="63" cy="48" r="4" fill="#4A3222"/>
+              <ellipse cx="25" cy="56" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="75" cy="56" rx="8" ry="5" fill="#FF9EBB"/>
+              <ellipse cx="50" cy="53" rx="3.5" ry="2.5" fill="#4A3222"/>
+              <path d="M44 59 Q50 66 56 59" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Caja de Regalo -->
+              <rect x="12" y="82" width="76" height="72" rx="8" fill="#D4243E" stroke="#4A3222" stroke-width="3"/>
+              <rect x="44" y="82" width="12" height="72" fill="#E5B869"/>
+              <rect x="8" y="76" width="84" height="14" rx="5" fill="#1E5631" stroke="#4A3222" stroke-width="2.8"/>
+            </g>
+            <!-- Dudu (CAFÉ) emocionado con estrellitas en los ojos -->
+            <g transform="translate(152, 54)">
+              <circle cx="20" cy="18" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="76" cy="18" r="11" fill="#8C5830" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="48" cy="96" rx="32" ry="28" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <ellipse cx="48" cy="50" rx="39" ry="34" fill="#C68B59" stroke="#4A3222" stroke-width="3"/>
+              <circle cx="35" cy="46" r="4.5" fill="#4A3222"/>
+              <circle cx="61" cy="46" r="4.5" fill="#4A3222"/>
+              <ellipse cx="24" cy="54" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="72" cy="54" rx="7" ry="4.5" fill="#FF8FA3"/>
+              <ellipse cx="48" cy="54" rx="12" ry="9" fill="#FFF3E6"/>
+              <ellipse cx="48" cy="51" rx="3.5" ry="2.5" fill="#4A3222"/>
+              <path d="M42 57 Q48 63 54 57" stroke="#4A3222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </g>
+            <text x="148" y="34" font-size="22">🎉 💖 ✨</text>
+          </svg>`;
+
+        case 'christmas_eve':
+        case 'header_hug':
+        default:
+          return `
+          <svg viewBox="0 0 300 220" class="w-full h-full drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sombra cálida en el piso -->
+            <ellipse cx="150" cy="198" rx="115" ry="13" fill="#FFE4EC"/>
+
+            <!-- Corazones flotando arriba -->
+            <g class="heart-particle">
+              <path d="M150 34 C145 24, 130 26, 135 38 C139 46, 150 52, 150 52 C150 52, 161 46, 165 38 C170 26, 155 24, 150 34 Z" fill="#D4243E"/>
+            </g>
+            <circle cx="70" cy="35" r="3" fill="#E5B869"/>
+            <circle cx="235" cy="40" r="3.5" fill="#E5B869"/>
+
+            <!-- DUDU (OSITO CAFÉ A LA IZQUIERDA) -->
+            <g transform="translate(42, 46)">
+              <!-- Orejitas café oscuro -->
+              <circle cx="24" cy="24" r="13" fill="#8C5830" stroke="#4A3222" stroke-width="3.2"/>
+              <circle cx="88" cy="24" r="13" fill="#8C5830" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Cuerpo gordito café -->
+              <ellipse cx="58" cy="110" rx="38" ry="34" fill="#C68B59" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Pancita crema -->
+              <ellipse cx="60" cy="114" rx="22" ry="20" fill="#FFF3E6"/>
+              <!-- Cabeza cachetona café -->
+              <ellipse cx="56" cy="60" rx="45" ry="39" fill="#C68B59" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Gorrito de Santa de Dudu -->
+              <path d="M22 34 C32 4, 72 6, 86 30 Z" fill="#D4243E" stroke="#4A3222" stroke-width="3"/>
+              <rect x="18" y="28" width="72" height="10" rx="5" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.8"/>
+              <circle cx="88" cy="22" r="8" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.5"/>
+              <!-- Ojitos tiernos brillantes -->
+              <circle cx="40" cy="56" r="4.5" fill="#4A3222"/>
+              <circle cx="72" cy="56" r="4.5" fill="#4A3222"/>
+              <circle cx="38.5" cy="54.5" r="1.6" fill="#FFFFFF"/>
+              <circle cx="70.5" cy="54.5" r="1.6" fill="#FFFFFF"/>
+              <!-- Cachetitos sonrojados -->
+              <ellipse cx="27" cy="65" rx="8.5" ry="5.5" fill="#FF8FA3" opacity="0.85"/>
+              <ellipse cx="84" cy="65" rx="8.5" ry="5.5" fill="#FF8FA3" opacity="0.85"/>
+              <!-- Trompita crema -->
+              <ellipse cx="56" cy="65" rx="13.5" ry="10.5" fill="#FFF3E6"/>
+              <ellipse cx="56" cy="61" rx="4.2" ry="3" fill="#4A3222"/>
+              <path d="M50 67 Q56 73 62 67" stroke="#4A3222" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              <!-- Bufanda verde pino -->
+              <path d="M25 90 Q56 102 88 90 L85 101 Q56 111 28 101 Z" fill="#1E5631" stroke="#4A3222" stroke-width="2.5"/>
+              <!-- Patitas -->
+              <ellipse cx="38" cy="140" rx="12" ry="8" fill="#8C5830" stroke="#4A3222" stroke-width="2.8"/>
+              <ellipse cx="76" cy="140" rx="12" ry="8" fill="#8C5830" stroke="#4A3222" stroke-width="2.8"/>
+            </g>
+
+            <!-- BUBU (OSITA 100% BLANCA A LA DERECHA) -->
+            <g transform="translate(142, 50)">
+              <!-- Orejitas oscuras redondas características de Bubu -->
+              <circle cx="24" cy="22" r="12.5" fill="#4A3222"/>
+              <circle cx="88" cy="22" r="12.5" fill="#4A3222"/>
+              <!-- Cuerpo gordito BLANCO -->
+              <ellipse cx="54" cy="106" rx="37" ry="33" fill="#FFFFFF" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Cabeza cachetona BLANCA -->
+              <ellipse cx="56" cy="58" rx="45" ry="38" fill="#FFFFFF" stroke="#4A3222" stroke-width="3.2"/>
+              <!-- Moñito Navideño Rojo y Dorado de Bubu -->
+              <g transform="translate(56, 17)">
+                <path d="M0 0 L-15 -9 L-12 7 Z" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+                <path d="M0 0 L15 -9 L12 7 Z" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+                <circle cx="0" cy="0" r="4.5" fill="#E5B869" stroke="#4A3222" stroke-width="2"/>
+              </g>
+              <!-- Ojitos dulces de Bubu -->
+              <circle cx="40" cy="54" r="4.5" fill="#4A3222"/>
+              <circle cx="72" cy="54" r="4.5" fill="#4A3222"/>
+              <circle cx="38.5" cy="52.5" r="1.6" fill="#FFFFFF"/>
+              <circle cx="70.5" cy="52.5" r="1.6" fill="#FFFFFF"/>
+              <!-- Cachetotes rosados de Bubu -->
+              <ellipse cx="25" cy="63" rx="9.5" ry="6" fill="#FF9EBB"/>
+              <ellipse cx="87" cy="63" rx="9.5" ry="6" fill="#FF9EBB"/>
+              <!-- Naricita y sonrisa tierna -->
+              <ellipse cx="56" cy="59" rx="4" ry="2.8" fill="#4A3222"/>
+              <path d="M50 65 Q56 71 62 65" stroke="#4A3222" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+              <!-- Bufanda roja haciendo juego -->
+              <path d="M25 88 Q56 99 87 88 L84 99 Q56 108 28 99 Z" fill="#D4243E" stroke="#4A3222" stroke-width="2.5"/>
+              <!-- Patitas blancas -->
+              <ellipse cx="38" cy="136" rx="11.5" ry="7.5" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.8"/>
+              <ellipse cx="74" cy="136" rx="11.5" ry="7.5" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.8"/>
+            </g>
+
+            <!-- Corazón que sostienen juntos en el medio -->
+            <path d="M150 132 C142 120, 124 124, 130 139 C135 150, 150 158, 150 158 C150 158, 165 150, 170 139 C176 124, 158 120, 150 132 Z" fill="#D4243E" stroke="#FFFFFF" stroke-width="2.5"/>
+          </svg>`;
+      }
+    }
+
+    function getMiniHeadSVG(type) {
+      if (type === 'dudu') {
+        return `<svg viewBox="0 0 60 60" class="w-8 h-8"><circle cx="14" cy="16" r="8" fill="#8C5830"/><circle cx="46" cy="16" r="8" fill="#8C5830"/><ellipse cx="30" cy="34" rx="22" ry="19" fill="#C68B59" stroke="#4A3222" stroke-width="2.5"/><circle cx="22" cy="31" r="2.8" fill="#4A3222"/><circle cx="38" cy="31" r="2.8" fill="#4A3222"/><ellipse cx="30" cy="36" rx="7" ry="5" fill="#FFF3E6"/><circle cx="30" cy="34" r="2" fill="#4A3222"/></svg>`;
+      }
+      return `<svg viewBox="0 0 60 60" class="w-8 h-8"><circle cx="14" cy="16" r="8" fill="#4A3222"/><circle cx="46" cy="16" r="8" fill="#4A3222"/><ellipse cx="30" cy="34" rx="22" ry="19" fill="#FFFFFF" stroke="#4A3222" stroke-width="2.5"/><circle cx="22" cy="31" r="2.8" fill="#4A3222"/><circle cx="38" cy="31" r="2.8" fill="#4A3222"/><ellipse cx="16" cy="36" rx="4.5" ry="3" fill="#FF9EBB"/><ellipse cx="44" cy="36" rx="4.5" ry="3" fill="#FF9EBB"/><circle cx="30" cy="34" r="2" fill="#4A3222"/></svg>`;
+    }
+
+    /* =========================================================================
+       5. CAJA DE MÚSICA NAVIDEÑA Y EFECTOS SONOROS (WEB AUDIO API)
+    ========================================================================= */
+    let audioCtx = null;
+    let musicInterval = null;
+    let melodyStep = 0;
+
+    // Notas de "We Wish You a Merry Christmas" estilo cajita musical tierna
+    const MELODY_NOTES = [
+      { f: 392.00, d: 0.35 }, // G4
+      { f: 523.25, d: 0.35 }, // C5
+      { f: 523.25, d: 0.20 }, // C5
+      { f: 587.33, d: 0.20 }, // D5
+      { f: 523.25, d: 0.20 }, // C5
+      { f: 493.88, d: 0.20 }, // B4
+      { f: 440.00, d: 0.35 }, // A4
+      { f: 440.00, d: 0.35 }, // A4
+      { f: 440.00, d: 0.35 }, // A4
+      { f: 587.33, d: 0.35 }, // D5
+      { f: 587.33, d: 0.20 }, // D5
+      { f: 659.25, d: 0.20 }, // E5
+      { f: 587.33, d: 0.20 }, // D5
+      { f: 523.25, d: 0.20 }, // C5
+      { f: 493.88, d: 0.35 }, // B4
+      { f: 392.00, d: 0.35 }, // G4
+      { f: 392.00, d: 0.35 }, // G4
+      { f: 659.25, d: 0.35 }, // E5
+      { f: 659.25, d: 0.20 }, // E5
+      { f: 698.46, d: 0.20 }, // F5
+      { f: 659.25, d: 0.20 }, // E5
+      { f: 587.33, d: 0.20 }, // D5
+      { f: 523.25, d: 0.35 }, // C5
+      { f: 440.00, d: 0.35 }, // A4
+      { f: 392.00, d: 0.20 }, // G4
+      { f: 392.00, d: 0.20 }, // G4
+      { f: 440.00, d: 0.35 }, // A4
+      { f: 587.33, d: 0.35 }, // D5
+      { f: 493.88, d: 0.35 }, // B4
+      { f: 523.25, d: 0.65 }  // C5
+    ];
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, duration = 0.25, type = 'sine', volume = 0.08) {
+      try {
+        initAudio();
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Silencioso si el navegador bloquea audio antes de interacción
+      }
+    }
+
+    function playSoundEffect(effect) {
+      initAudio();
+      if (!audioCtx) return;
+      if (effect === 'unlock') {
+        playTone(523.25, 0.18, 'triangle', 0.12);
+        setTimeout(() => playTone(659.25, 0.18, 'triangle', 0.12), 110);
+        setTimeout(() => playTone(783.99, 0.22, 'triangle', 0.12), 220);
+        setTimeout(() => playTone(1046.50, 0.45, 'sine', 0.14), 330);
+      } else if (effect === 'locked') {
+        playTone(220, 0.15, 'sawtooth', 0.06);
+        setTimeout(() => playTone(175, 0.25, 'sawtooth', 0.06), 130);
+      } else if (effect === 'boop') {
+        playTone(660, 0.12, 'sine', 0.1);
+        setTimeout(() => playTone(880, 0.18, 'sine', 0.1), 90);
+      }
+    }
+
+    window.toggleMusicBox = function () {
+      initAudio();
+      state.musicPlaying = !state.musicPlaying;
+      const iconEl = document.getElementById('music-icon');
+      const labelEl = document.getElementById('music-label');
+
+      if (state.musicPlaying) {
+        iconEl.className = 'ph-fill ph-speaker-high text-base animate-bounce';
+        labelEl.textContent = 'Sonando ♪';
+        melodyStep = 0;
+        musicInterval = setInterval(() => {
+          if (!state.musicPlaying) return;
+          const note = MELODY_NOTES[melodyStep % MELODY_NOTES.length];
+          playTone(note.f, note.d * 1.4, 'sine', 0.06);
+          playTone(note.f * 2, note.d * 0.8, 'triangle', 0.02); // Armónico de cajita musical
+          melodyStep++;
+        }, 380);
+      } else {
+        iconEl.className = 'ph-fill ph-speaker-slash text-base';
+        labelEl.textContent = 'Música';
+        if (musicInterval) clearInterval(musicInterval);
+      }
+    };
+
+    /* =========================================================================
+       6. VERIFICACIÓN DE FECHA REAL EN HORARIO DE GUATEMALA
+    ========================================================================= */
+    async function syncRealGuatemalaTime() {
+      try {
+        const res = await fetch('https://worldtimeapi.org/api/timezone/America/Guatemala');
+        if (res.ok) {
+          const data = await res.json();
+          const serverTimeMs = new Date(data.datetime).getTime();
+          state.timeOffsetMs = serverTimeMs - Date.now();
+          state.timeSyncedOnline = true;
+        }
+      } catch (e) {
+        // Fallback inmediato al reloj del sistema convertido a America/Guatemala
+        state.timeOffsetMs = 0;
+      }
+    }
+
+    function getGuatemalaDateParts() {
+      const now = new Date(Date.now() + state.timeOffsetMs);
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Guatemala',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false
+      });
+      const parts = formatter.formatToParts(now);
+      const map = {};
+      parts.forEach(p => { map[p.type] = parseInt(p.value, 10); });
+      return {
+        year: map.year,
+        month: map.month, // 1 = Enero ... 12 = Diciembre
+        day: map.day,
+        hour: map.hour === 24 ? 0 : map.hour,
+        minute: map.minute,
+        second: map.second
+      };
+    }
+
+    function canOpenDay(dayNumber) {
+      if (state.testMode) return true;
+      const gt = getGuatemalaDateParts();
+      // Si es diciembre (mes 12) y el día actual es mayor o igual al día de la tarjeta
+      if (gt.month === 12 && gt.day >= dayNumber) {
+        return true;
+      }
+      return false;
+    }
+
+    function isDayToday(dayNumber) {
+      const gt = getGuatemalaDateParts();
+      return gt.month === 12 && gt.day === dayNumber;
+    }
+
+    function updateClockAndCountdowns() {
+      const gt = getGuatemalaDateParts();
+      const pad = n => String(n).padStart(2, '0');
+      const monthsEs = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+      const clockEl = document.getElementById('guatemala-clock');
+      if (clockEl) {
+        clockEl.textContent = `${gt.day} ${monthsEs[gt.month - 1]} ${gt.year}, ${pad(gt.hour)}:${pad(gt.minute)}:${pad(gt.second)} GT`;
+      }
+
+      // Calcular tiempo restante para el próximo desbloqueo o para el 1 de diciembre
+      // Guatemala es UTC-6 todo el año
+      const targetYear = (gt.month === 12 && gt.day > 24) ? gt.year + 1 : gt.year;
+      let targetDay = 1;
+      let titleText = 'Tiempo para que inicie el 1 de Diciembre:';
+
+      if (gt.month === 12 && gt.day < 24) {
+        targetDay = gt.day + 1;
+        titleText = `Tiempo para desbloquear el Día ${targetDay} de Diciembre:`;
+      } else if (gt.month === 12 && gt.day >= 24) {
+        targetDay = 25;
+        titleText = '¡Feliz Navidad, mi Daycita hermosa! 🎄❤️';
+      }
+
+      const targetIso = `${targetYear}-12-${pad(targetDay)}T00:00:00-06:00`;
+      const targetMs = new Date(targetIso).getTime();
+      const nowMs = Date.now() + state.timeOffsetMs;
+      const diff = Math.max(0, targetMs - nowMs);
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('countdown-title').textContent = titleText;
+      document.getElementById('cd-days').textContent = pad(d);
+      document.getElementById('cd-hours').textContent = pad(h);
+      document.getElementById('cd-mins').textContent = pad(m);
+      document.getElementById('cd-secs').textContent = pad(s);
+
+      const statusEl = document.getElementById('current-date-status');
+      if (gt.month === 12 && gt.day <= 24) {
+        statusEl.textContent = `✨ Hoy es ${gt.day} de diciembre: puedes abrir las puertas del 1 al ${gt.day}.`;
+      } else if (gt.month < 12) {
+        statusEl.textContent = `🐾 Hoy es ${gt.day} de ${monthsEs[gt.month - 1]}: Dudu vigila los regalos hasta el 1 de diciembre.`;
+      } else {
+        statusEl.textContent = `🎄 ¡Diciembre completado! Todas las 24 sorpresas están desbloqueadas.`;
+      }
+    }
+
+    /* =========================================================================
+       7. RENDERIZADO DE LAS 24 PUERTAS Y BARRA DE PROGRESO
+    ========================================================================= */
+    function renderAdventGrid() {
+      const grid = document.getElementById('advent-grid');
+      if (!grid) return;
+
+      grid.innerHTML = ADVENT_DAYS.map(item => {
+        const isOpened = Boolean(state.openedDays[String(item.day)]);
+        const unlocked = canOpenDay(item.day);
+        const todayHighlight = isDayToday(item.day) && !isOpened;
+        const savedInfo = state.openedDays[String(item.day)] || {};
+        const hasNote = Boolean(savedInfo.note || savedInfo.reaction);
+        const isGolden = item.day === 24 || item.day % 5 === 0;
+
+        if (isOpened) {
+          // TARJETA YA ABIERTA POR DAYCITA
+          return `
+            <button onclick="handleDoorClick(${item.day})" id="door-card-${item.day}"
+              class="advent-door group relative rounded-3xl p-4 min-h-[168px] flex flex-col justify-between text-left bg-white border-2 ${item.day === 24 ? 'border-gold shadow-lg' : 'border-pine/40 shadow-md'} overflow-hidden">
+              <div class="flex items-center justify-between w-full">
+                <span class="inline-flex items-center justify-center w-9 h-9 rounded-2xl bg-pine text-white font-display font-bold text-base shadow-sm">
+                  ${item.day}
+                </span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-pine font-bold text-[11px] flex items-center gap-1">
+                  <i class="ph-fill ph-check-circle"></i> Abierto
+                </span>
+              </div>
+
+              <div class="my-2 flex flex-col items-center text-center">
+                <span class="text-3xl mb-1 transform group-hover:scale-125 transition">${item.sticker}</span>
+                <h3 class="font-display font-bold text-xs sm:text-sm text-cocoa line-clamp-2 leading-snug">
+                  ${item.title}
+                </h3>
+              </div>
+
+              <div class="w-full pt-2 border-t border-creamDark flex items-center justify-between text-[11px] text-cocoa/70 font-semibold">
+                <span class="truncate text-berryDark">🎟️ Ver vale</span>
+                ${hasNote ? '<span title="Dejaste una nota aquí">💌</span>' : '<span>✨</span>'}
+              </div>
+            </button>
+          `;
+        }
+
+        // TARJETA CERRADA (CON LISTÓN DE REGALO 3D)
+        return `
+          <button onclick="handleDoorClick(${item.day})" id="door-card-${item.day}"
+            class="advent-door ${isGolden ? 'gift-ribbon-gold' : ''} ${todayHighlight || (unlocked && !isOpened) ? 'animate-glow-ready' : ''} group relative rounded-3xl p-4 min-h-[168px] flex flex-col justify-between text-left ${item.day === 24 ? 'bg-gradient-to-br from-berry via-berryDark to-cocoa text-white border-2 border-gold' : unlocked ? 'bg-gradient-to-br from-FFFDF9 via-blush to-blushDeep/50 border-2 border-berry' : 'bg-gradient-to-br from-white via-cream to-blush/50 border-2 border-blushDeep'} shadow-md overflow-hidden">
+
+            <!-- Listones cruzados del regalo -->
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+
+            <!-- Moño central del regalo -->
+            <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+              <div class="w-12 h-12 rounded-2xl ${item.day === 24 ? 'bg-gold text-cocoa' : unlocked ? 'bg-berry text-white scale-110' : 'bg-white text-berry border-2 border-berry'} shadow-md flex items-center justify-center font-display font-bold text-lg group-hover:scale-125 transition">
+                ${item.day}
+              </div>
+            </div>
+
+            <!-- Esquina superior -->
+            <div class="relative z-10 flex items-center justify-between w-full">
+              <span class="px-2 py-0.5 rounded-full ${item.day === 24 ? 'bg-gold text-cocoa' : 'bg-white/90 text-cocoa'} font-display font-bold text-[11px] shadow-sm">
+                Dic ${item.day}
+              </span>
+              <span class="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center shadow-sm text-sm">
+                ${unlocked ? '🎁' : '🔒'}
+              </span>
+            </div>
+
+            <!-- Esquina inferior -->
+            <div class="relative z-10 w-full flex items-center justify-between mt-auto pt-8">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold shadow-sm ${unlocked ? 'bg-pine text-white' : 'bg-white/95 text-cocoa/80'}">
+                ${unlocked ? '¡Ábreme hoy! ✨' : 'Bloqueado 🐾'}
+              </span>
+              <span class="text-base drop-shadow">${item.sticker}</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      updateProgressAndWalletCounters();
+    }
+
+    function updateProgressAndWalletCounters() {
+      const openedKeys = Object.keys(state.openedDays);
+      const count = openedKeys.length;
+      const pct = Math.round((count / 24) * 100);
+
+      document.getElementById('opened-count-text').textContent = `${count} de 24`;
+      document.getElementById('opened-percent-text').textContent = `${pct}%`;
+      document.getElementById('wallet-count-badge').textContent = String(count);
+
+      // Mover a Dudu hacia Bubu en el caminito
+      const fillWidth = Math.max(6, Math.min(96, (count / 24) * 92 + 4));
+      const duduLeft = Math.max(2, Math.min(82, (count / 24) * 80 + 2));
+      document.getElementById('progress-fill-bar').style.width = `${fillWidth}%`;
+      document.getElementById('walking-dudu-marker').style.left = `${duduLeft}%`;
+    }
+
+    /* =========================================================================
+       8. INTERACCIÓN AL ABRIR UNA PUERTA O INTENTAR ABRIR ANTES DE TIEMPO
+    ========================================================================= */
+    window.handleDoorClick = async function (dayNumber) {
+      const dayData = ADVENT_DAYS.find(d => d.day === dayNumber);
+      if (!dayData) return;
+
+      const alreadyOpened = Boolean(state.openedDays[String(dayNumber)]);
+      const allowed = canOpenDay(dayNumber);
+
+      if (!allowed && !alreadyOpened) {
+        // ¡ALTO AHÍ, DAYCITA! La puerta tiembla y sale Dudu Guardia
+        playSoundEffect('locked');
+        const cardEl = document.getElementById(`door-card-${dayNumber}`);
+        if (cardEl) {
+          cardEl.classList.remove('shake-card');
+          void cardEl.offsetWidth;
+          cardEl.classList.add('shake-card');
+        }
+        openLockedModal(dayNumber);
+        return;
+      }
+
+      // Puerta válida o ya abierta
+      playSoundEffect('unlock');
+      launchConfetti(dayNumber === 24 ? 110 : 50);
+
+      if (!alreadyOpened) {
+        const nowStr = new Date().toLocaleString('es-GT', {
+          timeZone: 'America/Guatemala',
+          day: '2-digit',
+          month: 'short',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        const record = {
+          day: dayNumber,
+          openedAt: nowStr,
+          reaction: '',
+          note: ''
+        };
+        state.openedDays[String(dayNumber)] = record;
+        renderAdventGrid();
+        await saveDoorStateToFirestore(dayNumber, record);
+      }
+
+      openDayModal(dayData);
+    };
+
+    /* Modal de Puerta Bloqueada ("¡Alto ahí, Daycita!") */
+    function openLockedModal(dayNumber) {
+      document.getElementById('locked-day-num').textContent = String(dayNumber);
+      document.getElementById('locked-modal-svg').innerHTML = getBubuDuduSVG('guard_stop');
+      const randomMsg = FUNNY_LOCKED_MESSAGES[Math.floor(Math.random() * FUNNY_LOCKED_MESSAGES.length)];
+      document.getElementById('locked-funny-message').textContent = randomMsg;
+
+      // Calcular cuánto falta para ese día específico
+      const gt = getGuatemalaDateParts();
+      const pad = n => String(n).padStart(2, '0');
+      const targetIso = `${gt.year}-12-${pad(dayNumber)}T00:00:00-06:00`;
+      const diff = Math.max(0, new Date(targetIso).getTime() - (Date.now() + state.timeOffsetMs));
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById('locked-specific-countdown').textContent =
+        `Faltan ${d} días, ${h} horas y ${m} minutos ⏳`;
+
+      const modal = document.getElementById('locked-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    window.closeLockedModal = function () {
+      const modal = document.getElementById('locked-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    /* Modal de Sorpresa Desbloqueada */
+    function openDayModal(dayData) {
+      state.activeModalDay = dayData.day;
+      const saved = state.openedDays[String(dayData.day)] || {};
+
+      document.getElementById('modal-day-number').textContent = String(dayData.day);
+      document.getElementById('modal-day-tag').textContent = dayData.tag;
+      document.getElementById('modal-day-title').textContent = dayData.title;
+      document.getElementById('modal-day-svg').innerHTML = getBubuDuduSVG(dayData.scene);
+      document.getElementById('modal-day-message').textContent = dayData.message;
+
+      document.getElementById('modal-coupon-code').textContent = `#DAYCITA-${String(dayData.day).padStart(2, '0')}`;
+      document.getElementById('modal-coupon-title').textContent = dayData.couponTitle;
+      document.getElementById('modal-coupon-desc').textContent = dayData.couponDesc;
+      document.getElementById('btn-copy-coupon-text').textContent = 'Copiar Vale para reclamarlo';
+
+      document.getElementById('modal-opened-timestamp').textContent = saved.openedAt ? `Abierto: ${saved.openedAt}` : '';
+      document.getElementById('daycita-note-input').value = saved.note || '';
+      document.getElementById('note-saved-feedback').classList.add('hidden');
+
+      state.selectedReaction = saved.reaction || '';
+      highlightSelectedReactionChip();
+
+      // Renderizar mini-dinámica interactiva si el día tiene una
+      renderInteractiveSlot(dayData);
+
+      const modal = document.getElementById('day-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    window.closeDayModal = function () {
+      const modal = document.getElementById('day-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    /* Mini-dinámicas dentro del modal de ciertos días */
+    function renderInteractiveSlot(dayData) {
+      const slot = document.getElementById('modal-interactive-slot');
+      if (!dayData.interactiveType || dayData.interactiveType === 'none') {
+        slot.classList.add('hidden');
+        slot.innerHTML = '';
+        return;
+      }
+
+      slot.classList.remove('hidden');
+
+      if (dayData.interactiveType === 'scratch_card') {
+        slot.innerHTML = `
+          <div class="bg-amber-50 rounded-2xl p-4 border-2 border-gold text-center space-y-2">
+            <div class="font-display font-bold text-sm text-cocoa">
+              ✨ ¡Rasca con tu dedito o mouse para descubrir un Bonus Secreto! ✨
+            </div>
+            <div class="relative w-full max-w-xs h-24 mx-auto rounded-xl overflow-hidden border-2 border-berry shadow-inner bg-white flex items-center justify-center p-3">
+              <p class="font-display font-bold text-xs sm:text-sm text-berry select-none">
+                ${dayData.scratchSecret}
+              </p>
+              <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full cursor-pointer touch-none"></canvas>
+            </div>
+          </div>
+        `;
+        setTimeout(() => initScratchCardCanvas(), 60);
+      } else if (dayData.interactiveType === 'hug_burst') {
+        slot.innerHTML = `
+          <div class="bg-blush/60 rounded-2xl p-4 border-2 border-blushDeep text-center space-y-2">
+            <div class="font-display font-bold text-sm text-berryDark">
+              🤗 ¡Generador de Abrazos de Oso de este Día!
+            </div>
+            <button onclick="sendQuickHug(); launchConfetti(35);" class="px-5 py-2.5 rounded-xl bg-berry hover:bg-berryDark text-white font-display font-bold text-sm shadow-md transition transform active:scale-95">
+              ¡Mandar Lluvia de Besos y Abrazos a Dudu! 🐻‍❄️❤️🐻
+            </button>
+          </div>
+        `;
+      } else if (dayData.interactiveType === 'grand_finale') {
+        slot.innerHTML = `
+          <div class="bg-gradient-to-r from-berry/15 via-gold/25 to-berry/15 rounded-2xl p-5 border-2 border-gold text-center space-y-3">
+            <div class="font-display font-bold text-lg text-berry">
+              🎆 ¡Fuegos Artificiales de Nochebuena para Daycita! 🎆
+            </div>
+            <p class="text-xs sm:text-sm text-cocoa font-semibold">
+              Has completado el camino de Bubu y Dudu. Presiona el botón para iluminar el cielo de corazones:
+            </p>
+            <button onclick="launchConfetti(140); playSoundEffect('unlock');" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-berry to-goldDark text-white font-display font-bold text-base shadow-lg transition transform hover:scale-105 active:scale-95">
+              ¡Lanzar Fuegos Artificiales de Amor! 💖🎇
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    function initScratchCardCanvas() {
+      const canvas = document.getElementById('scratch-canvas');
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 280;
+      canvas.height = rect.height || 96;
+      const ctx = canvas.getContext('2d');
+
+      // Capa dorada para rascar
+      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      grad.addColorStop(0, '#E5B869');
+      grad.addColorStop(0.5, '#F6D992');
+      grad.addColorStop(1, '#C4923E');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#4A3222';
+      ctx.font = 'bold 13px Fredoka, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🐾 RASCA AQUÍ, DAYCITA 🐾', canvas.width / 2, canvas.height / 2 + 5);
+
+      let isDrawing = false;
+      const scratch = (x, y) => {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e.offsetX, e.offsetY); });
+      canvas.addEventListener('mousemove', (e) => { if (isDrawing) scratch(e.offsetX, e.offsetY); });
+      window.addEventListener('mouseup', () => { isDrawing = false; });
+
+      canvas.addEventListener('touchstart', (e) => {
+        isDrawing = true;
+        const r = canvas.getBoundingClientRect();
+        const t = e.touches[0];
+        scratch(t.clientX - r.left, t.clientY - r.top);
+      }, { passive: true });
+      canvas.addEventListener('touchmove', (e) => {
+        if (!isDrawing) return;
+        const r = canvas.getBoundingClientRect();
+        const t = e.touches[0];
+        scratch(t.clientX - r.left, t.clientY - r.top);
+      }, { passive: true });
+    }
+
+    /* =========================================================================
+       9. GUARDAR REACCIONES, NOTAS Y VALES DE DAYCITA
+    ========================================================================= */
+    window.selectDayReaction = function (reactionText) {
+      state.selectedReaction = reactionText;
+      highlightSelectedReactionChip();
+      saveDaycitaNoteForCurrentDay();
+    };
+
+    function highlightSelectedReactionChip() {
+      document.querySelectorAll('.reaction-chip').forEach(btn => {
+        if (btn.textContent.trim() === state.selectedReaction) {
+          btn.className = 'reaction-chip px-2.5 py-1 rounded-full bg-berry text-white text-xs font-bold border border-berry shadow transition';
+        } else {
+          btn.className = 'reaction-chip px-2.5 py-1 rounded-full bg-white hover:bg-blush text-cocoa text-xs font-semibold border border-blushDeep transition';
+        }
+      });
+    }
+
+    window.saveDaycitaNoteForCurrentDay = async function () {
+      const dayNum = state.activeModalDay;
+      if (!dayNum) return;
+
+      const noteVal = document.getElementById('daycita-note-input').value.trim();
+      const existing = state.openedDays[String(dayNum)] || {
+        day: dayNum,
+        openedAt: new Date().toLocaleString('es-GT', { timeZone: 'America/Guatemala' })
+      };
+
+      existing.note = noteVal;
+      existing.reaction = state.selectedReaction || existing.reaction || '';
+      state.openedDays[String(dayNum)] = existing;
+
+      renderAdventGrid();
+      await saveDoorStateToFirestore(dayNum, existing);
+
+      playSoundEffect('boop');
+      const fb = document.getElementById('note-saved-feedback');
+      fb.classList.remove('hidden');
+      showCuteToast('💌', '¡Tu mensajito quedó guardado para tu Dudu!');
+    };
+
+    window.copyCouponToClipboard = function () {
+      const dayNum = state.activeModalDay;
+      const dayData = ADVENT_DAYS.find(d => d.day === dayNum);
+      if (!dayData) return;
+
+      const textToCopy = `🎟️ VALE OFICIAL DE BUBU Y DUDU (#DAYCITA-${String(dayNum).padStart(2, '0')})\nAmor, hoy desbloqueé mi vale del Día ${dayNum}: "${dayData.couponTitle}" 💖 ¡Quiero canjearlo contigo!`;
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      document.getElementById('btn-copy-coupon-text').textContent = '¡Vale copiado! Pégalo en WhatsApp 💬';
+      playSoundEffect('boop');
+      showCuteToast('🎟️', '¡Vale copiado! Ya puedes enviárselo a tu novio por WhatsApp.');
+    };
+
+    /* Billetera de Vales */
+    window.openCouponsWalletModal = function () {
+      const listEl = document.getElementById('wallet-coupons-list');
+      const openedNumbers = Object.keys(state.openedDays).map(Number).sort((a, b) => a - b);
+
+      if (openedNumbers.length === 0) {
+        listEl.innerHTML = `
+          <div class="text-center py-8 bg-white rounded-2xl border border-blushDeep p-6 space-y-2">
+            <div class="text-4xl">🎁</div>
+            <h4 class="font-display font-bold text-base text-cocoa">Aún no tienes vales desbloqueados</h4>
+            <p class="text-xs text-cocoa/70">Cuando abras tus puertas del 1 al 24 de diciembre, todos tus vales aparecerán guardados aquí.</p>
+          </div>
+        `;
+      } else {
+        listEl.innerHTML = openedNumbers.map(num => {
+          const item = ADVENT_DAYS.find(d => d.day === num);
+          const info = state.openedDays[String(num)];
+          return `
+            <div class="coupon-ticket rounded-2xl p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-berry text-white font-display font-bold text-xs">Día ${num}</span>
+                  <span class="text-xs font-mono font-bold text-berryDark">#DAYCITA-${String(num).padStart(2, '0')}</span>
+                  ${info.reaction ? `<span class="text-xs bg-blush px-2 py-0.5 rounded-full">${info.reaction}</span>` : ''}
+                </div>
+                <h4 class="font-display font-bold text-base text-cocoa mt-1">${item.couponTitle}</h4>
+                <p class="text-xs text-cocoa/75">${item.couponDesc}</p>
+              </div>
+              <button onclick="closeCouponsWalletModal(); handleDoorClick(${num});" class="shrink-0 px-3 py-1.5 rounded-xl bg-blush hover:bg-blushDeep text-berryDark font-display font-bold text-xs transition">
+                Ver Día ${num} →
+              </button>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const modal = document.getElementById('wallet-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.closeCouponsWalletModal = function () {
+      const modal = document.getElementById('wallet-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    /* =========================================================================
+       10. INTERACCIONES EXTRA (CACHETES DE BUBU, MEDIDOR DE AMOR, MODO PRUEBA)
+    ========================================================================= */
+    window.triggerHeaderBearsBoop = function () {
+      playSoundEffect('boop');
+      launchConfetti(28);
+      showCuteToast('🐻‍❄️❤️🐻', 'Bubu y Dudu dicen: ¡Te amamos muchísimo, Daycita hermosa!');
+    };
+
+    window.sendQuickHug = async function () {
+      state.globalHugs = (state.globalHugs || 0) + 1;
+      document.getElementById('global-hug-counter').textContent = String(state.globalHugs);
+      playSoundEffect('boop');
+      launchConfetti(20);
+      showCuteToast('🤗', `¡Abrazo #${state.globalHugs} enviado directamente a tu Dudu!`);
+      await saveMetaStatsToFirestore();
+    };
+
+    window.squishBubuCheeks = async function () {
+      state.cheeksSquished = (state.cheeksSquished || 0) + 1;
+      document.getElementById('cheeks-counter').textContent = String(state.cheeksSquished);
+      const container = document.getElementById('squish-bubu-container');
+      container.style.transform = 'scaleX(1.18) scaleY(0.88)';
+      setTimeout(() => { container.style.transform = 'scale(1)'; }, 180);
+      playSoundEffect('boop');
+      await saveMetaStatsToFirestore();
+    };
+
+    window.boostLoveMeter = function () {
+      const phrases = [
+        '¡999,999,999% (De aquí a la Luna a pasitos de tortuga)! 🐢🌙',
+        '¡INFINITO Multiplicado por Mil Millones! 💖✨',
+        '¡Error 404: No cabe tanto amor por Daycita en la pantalla! 🚀❤️',
+        '¡Más de lo que a Bubu le gustan los postrecitos! 🍓🐻‍❄️'
+      ];
+      const pick = phrases[Math.floor(Math.random() * phrases.length)];
+      document.getElementById('love-meter-value').textContent = pick;
+      playSoundEffect('unlock');
+      launchConfetti(30);
+    };
+
+    window.saveQuickWish = async function () {
+      const input = document.getElementById('quick-wish-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const entry = {
+        text,
+        createdAt: new Date().toLocaleString('es-GT', { timeZone: 'America/Guatemala' })
+      };
+      state.wishes.unshift(entry);
+      input.value = '';
+      playSoundEffect('unlock');
+      showCuteToast('✨', '¡Deseo guardado! Tu Dudu ya puede verlo en su panel.');
+      await saveMetaStatsToFirestore();
+    };
+
+    /* Carta de Bienvenida */
+    window.openLoveLetterIntroModal = function () {
+      const content = document.getElementById('utility-modal-content');
+      content.innerHTML = `
+        <div class="text-center space-y-4">
+          <div class="w-40 h-36 mx-auto">${getBubuDuduSVG('header_hug')}</div>
+          <h3 class="font-script text-3xl text-berry">Mi querida Dairyn (Daycita):</h3>
+          <p class="text-sm sm:text-base text-cocoa leading-relaxed text-left bg-white p-4 rounded-2xl border border-blushDeep shadow-inner">
+            Quise prepararte algo diferente y único para este diciembre. Cada una de estas 24 puertitas fue pensada especialmente para ti, inspirada en nuestros ositos favoritos <strong>Bubu y Dudu</strong>.<br><br>
+            Cada día del <strong>1 al 24 de diciembre</strong> podrás abrir la puerta que corresponde a esa fecha, descubrir tu vale navideño y dejarme una notita que se guarda en tiempo real para que yo la lea.<br><br>
+            ¡Espero que te saque miles de sonrisas, mi niña hermosa!
+          </p>
+          <button onclick="closeUtilityModal()" class="w-full py-3 rounded-2xl bg-berry text-white font-display font-bold shadow">
+            ¡Te amo, mi Dudu! 🐻‍❄️❤️🐻
+          </button>
+        </div>
+      `;
+      const modal = document.getElementById('utility-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    /* Activación del Modo Prueba Secreto (5 clics en la estrella o PIN 2412) */
+    window.handleSecretStarClick = function () {
+      state.secretStarClicks++;
+      playSoundEffect('boop');
+      if (state.secretStarClicks >= 5) {
+        state.secretStarClicks = 0;
+        toggleTestMode(!state.testMode);
+      }
+    };
+
+    window.toggleTestMode = function (enable) {
+      state.testMode = enable;
+      const banner = document.getElementById('test-mode-banner');
+      if (state.testMode) {
+        banner.classList.remove('hidden');
+        showCuteToast('🛠️', 'Modo Prueba Activado: Todas las 24 puertas están desbloqueadas.');
+      } else {
+        banner.classList.add('hidden');
+        showCuteToast('🔒', 'Modo Real Activado: Bloqueo por fecha de Guatemala restablecido.');
+      }
+      renderAdventGrid();
+    };
+
+    window.openPinUnlockModal = function () {
+      const content = document.getElementById('utility-modal-content');
+      content.innerHTML = `
+        <div class="text-center space-y-4">
+          <div class="w-14 h-14 rounded-full bg-blush text-berry mx-auto flex items-center justify-center text-2xl">
+            🔐
+          </div>
+          <h3 class="font-display text-xl font-bold text-cocoa">Panel Secreto del Novio (Dudu)</h3>
+          <p class="text-xs sm:text-sm text-cocoa/75">
+            Ingresa el PIN secreto (<strong>2412</strong>) para probar abrir todas las puertas antes de diciembre o leer las notas que Daycita ha dejado.
+          </p>
+          <input id="pin-code-input" type="password" maxlength="8" placeholder="Ingresa el PIN..." class="w-48 text-center px-4 py-2.5 rounded-xl bg-white border-2 border-blushDeep font-display font-bold text-lg focus:outline-none focus:border-berry" />
+          <div class="flex gap-2 pt-2">
+            <button onclick="verifyPinCode()" class="flex-1 py-2.5 rounded-xl bg-berry hover:bg-berryDark text-white font-display font-bold text-sm shadow">
+              Entrar al Panel 🛠️
+            </button>
+          </div>
+        </div>
+      `;
+      const modal = document.getElementById('utility-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.verifyPinCode = function () {
+      const val = document.getElementById('pin-code-input')?.value.trim();
+      if (val === '2412') {
+        toggleTestMode(true);
+        openBoyfriendAdminModal();
+      } else {
+        showCuteToast('🐾', 'PIN incorrecto. ¡Pista: Nochebuena (2412)!');
+      }
+    };
+
+    window.openBoyfriendAdminModal = function () {
+      const openedList = Object.values(state.openedDays).sort((a, b) => a.day - b.day);
+      const wishesHtml = state.wishes.length
+        ? state.wishes.map(w => `<li class="bg-white p-2.5 rounded-xl border border-blushDeep text-xs"><strong>${w.createdAt}:</strong> ${w.text}</li>`).join('')
+        : '<li class="text-xs text-cocoa/60">Aún no hay deseos rápidos enviados.</li>';
+
+      const notesHtml = openedList.length
+        ? openedList.map(o => `
+            <div class="bg-white p-3 rounded-xl border border-blushDeep text-left text-xs space-y-1">
+              <div class="flex justify-between font-bold text-berry">
+                <span>Día ${o.day} de Diciembre</span>
+                <span class="text-cocoa/60">${o.openedAt || ''}</span>
+              </div>
+              <div><strong>Reacción:</strong> ${o.reaction || 'Sin reacción aún'}</div>
+              <div><strong>Nota de Daycita:</strong> ${o.note ? `"${o.note}"` : '<em>No escribió nota</em>'}</div>
+            </div>
+          `).join('')
+        : '<p class="text-xs text-cocoa/60">Aún no se han abierto puertas.</p>';
+
+      const content = document.getElementById('utility-modal-content');
+      content.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex items-center justify-between border-b border-blushDeep pb-2">
+            <h3 class="font-display text-xl font-bold text-cocoa">💌 Reporte en Vivo de Daycita</h3>
+            <span class="px-2.5 py-0.5 rounded-full bg-pine text-white text-xs font-bold">Abrazos: ${state.globalHugs}</span>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm text-berryDark mb-2">Puertas abiertas y notas de Dairyn:</h4>
+            <div class="space-y-2 max-h-48 overflow-y-auto pr-1">${notesHtml}</div>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm text-berryDark mb-2">Deseos del Buzón Rápido:</h4>
+            <ul class="space-y-1.5 max-h-32 overflow-y-auto">${wishesHtml}</ul>
+          </div>
+
+          <div class="pt-3 border-t border-blushDeep flex flex-wrap gap-2 justify-between">
+            <button onclick="resetAllDoorsConfirm()" class="px-4 py-2 rounded-xl bg-berry text-white font-display font-bold text-xs">
+              Reiniciar Calendario a Cero 🔄
+            </button>
+            <button onclick="closeUtilityModal()" class="px-4 py-2 rounded-xl bg-cocoa text-white font-display font-bold text-xs">
+              Cerrar Panel
+            </button>
+          </div>
+        </div>
+      `;
+      const modal = document.getElementById('utility-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    };
+
+    window.resetAllDoorsConfirm = async function () {
+      state.openedDays = {};
+      renderAdventGrid();
+      closeUtilityModal();
+      showCuteToast('🔄', 'Todas las puertas fueron cerradas nuevamente para dejarlas listas para Daycita.');
+
+      if (db && currentUser) {
+        try {
+          for (let i = 1; i <= 24; i++) {
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'advent_doors', `day_${i}`);
+            await deleteDoc(docRef);
+          }
+        } catch (err) {
+          console.warn('Error al reiniciar puertas en Firestore:', err);
+        }
+      }
+    };
+
+    window.closeUtilityModal = function () {
+      const modal = document.getElementById('utility-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    };
+
+    function showCuteToast(icon, text) {
+      const toast = document.getElementById('cute-toast');
+      document.getElementById('cute-toast-icon').textContent = icon;
+      document.getElementById('cute-toast-text').textContent = text;
+      toast.classList.remove('hidden');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3600);
+    }
+
+    /* =========================================================================
+       11. SINCRONIZACIÓN CON FIREBASE FIRESTORE (REGLAS ESTRICTAS)
+    ========================================================================= */
+    function updateSyncBadge(status, label) {
+      const dot = document.getElementById('sync-dot');
+      const txt = document.getElementById('sync-text');
+      if (!dot || !txt) return;
+      txt.textContent = label;
+      if (status === 'online') {
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+      } else if (status === 'saving') {
+        dot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-ping';
+      } else {
+        dot.className = 'w-2 h-2 rounded-full bg-rose-400';
+      }
+    }
+
+    async function initFirebaseConnection() {
+      if (!firebaseConfig) {
+        updateSyncBadge('offline', 'Modo Local (Configura Firebase)');
+        return;
+      }
+
+      try {
+        app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        // Regla obligatoria: Autenticar primero antes de cualquier consulta
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+          currentUser = user;
+          if (user) {
+            updateSyncBadge('online', 'Sincronizado en la Nube ☁️');
+            subscribeToAdventDoors();
+            subscribeToMetaStats();
+          }
+        });
+      } catch (err) {
+        console.warn('Error inicializando Firebase:', err);
+        updateSyncBadge('offline', 'Modo Sin Conexión');
+      }
+    }
+
+    function subscribeToAdventDoors() {
+      if (!currentUser || !db) return;
+      const doorsCol = collection(db, 'artifacts', appId, 'public', 'data', 'advent_doors');
+      onSnapshot(
+        doorsCol,
+        (snapshot) => {
+          const updated = {};
+          snapshot.forEach((docSnap) => {
+            const data = docSnap.data();
+            if (data && data.day) {
+              updated[String(data.day)] = data;
+            }
+          });
+          state.openedDays = updated;
+          renderAdventGrid();
+        },
+        (error) => {
+          console.warn('Error escuchando puertas en Firestore:', error);
+        }
+      );
+    }
+
+    function subscribeToMetaStats() {
+      if (!currentUser || !db) return;
+      const metaCol = collection(db, 'artifacts', appId, 'public', 'data', 'advent_meta');
+      onSnapshot(
+        metaCol,
+        (snapshot) => {
+          snapshot.forEach((docSnap) => {
+            if (docSnap.id === 'stats') {
+              const data = docSnap.data();
+              state.globalHugs = data.globalHugs || 0;
+              state.cheeksSquished = data.cheeksSquished || 0;
+              state.wishes = data.wishes ? JSON.parse(data.wishes) : [];
+              document.getElementById('global-hug-counter').textContent = String(state.globalHugs);
+              document.getElementById('cheeks-counter').textContent = String(state.cheeksSquished);
+            }
+          });
+        },
+        (error) => {
+          console.warn('Error escuchando estadísticas en Firestore:', error);
+        }
+      );
+    }
+
+    async function saveDoorStateToFirestore(dayNumber, record) {
+      if (!currentUser || !db) return;
+      try {
+        updateSyncBadge('saving', 'Guardando regalo...');
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'advent_doors', `day_${dayNumber}`);
+        await setDoc(docRef, record, { merge: true });
+        updateSyncBadge('online', 'Sincronizado en la Nube ☁️');
+      } catch (err) {
+        console.warn('No se pudo guardar la puerta en Firestore:', err);
+        updateSyncBadge('offline', 'Error al guardar en nube');
+      }
+    }
+
+    async function saveMetaStatsToFirestore() {
+      if (!currentUser || !db) return;
+      try {
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'advent_meta', 'stats');
+        await setDoc(docRef, {
+          globalHugs: state.globalHugs,
+          cheeksSquished: state.cheeksSquished,
+          wishes: JSON.stringify(state.wishes.slice(0, 30))
+        }, { merge: true });
+      } catch (err) {
+        console.warn('Error guardando meta stats:', err);
+      }
+    }
+
+    /* =========================================================================
+       12. EFECTO DE NIEVE SUAVE Y CONFETI DE CORAZONES EN CANVAS
+    ========================================================================= */
+    function initSnowAndConfettiCanvases() {
+      const snowCanvas = document.getElementById('snow-canvas');
+      const fxCanvas = document.getElementById('fx-canvas');
+      const sCtx = snowCanvas.getContext('2d');
+      const fCtx = fxCanvas.getContext('2d');
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+
+      const resize = () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        snowCanvas.width = width;
+        snowCanvas.height = height;
+        fxCanvas.width = width;
+        fxCanvas.height = height;
+      };
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Copos de nieve
+      const flakes = Array.from({ length: 45 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 3 + 1.5,
+        vy: Math.random() * 0.7 + 0.35,
+        vx: (Math.random() - 0.5) * 0.4,
+        alpha: Math.random() * 0.55 + 0.25
+      }));
+
+      // Partículas de confeti y corazones
+      window.__confettiParticles = [];
+
+      window.launchConfetti = function (amount = 50) {
+        const colors = ['#D4243E', '#FFB3C6', '#E5B869', '#1E5631', '#FF6B8B'];
+        for (let i = 0; i < amount; i++) {
+          window.__confettiParticles.push({
+            x: width / 2 + (Math.random() - 0.5) * 180,
+            y: height / 2,
+            vx: (Math.random() - 0.5) * 11,
+            vy: -(Math.random() * 9 + 4),
+            size: Math.random() * 8 + 5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rot: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 0.2,
+            life: 100
+          });
+        }
+      };
+
+      function animateLoop() {
+        // Dibujar nieve
+        sCtx.clearRect(0, 0, width, height);
+        flakes.forEach(f => {
+          f.y += f.vy;
+          f.x += f.vx;
+          if (f.y > height) { f.y = -10; f.x = Math.random() * width; }
+          if (f.x > width) f.x = 0;
+          if (f.x < 0) f.x = width;
+
+          sCtx.beginPath();
+          sCtx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          sCtx.fillStyle = `rgba(255, 182, 198, ${f.alpha})`;
+          sCtx.fill();
+        });
+
+        // Dibujar confeti
+        fCtx.clearRect(0, 0, width, height);
+        for (let i = window.__confettiParticles.length - 1; i >= 0; i--) {
+          const p = window.__confettiParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.24; // gravedad
+          p.rot += p.vRot;
+          p.life -= 1;
+
+          fCtx.save();
+          fCtx.translate(p.x, p.y);
+          fCtx.rotate(p.rot);
+          fCtx.fillStyle = p.color;
+          fCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+          fCtx.restore();
+
+          if (p.life <= 0 || p.y > height + 30) {
+            window.__confettiParticles.splice(i, 1);
+          }
+        }
+
+        requestAnimationFrame(animateLoop);
+      }
+
+      animateLoop();
+    }
+
+    /* =========================================================================
+       13. INICIALIZACIÓN AL CARGAR LA PÁGINA
+    ========================================================================= */
+    window.addEventListener('DOMContentLoaded', async () => {
+      // Inyectar ilustraciones principales de Bubu (blanca) y Dudu (café)
+      document.getElementById('header-bubu-dudu-art').innerHTML = getBubuDuduSVG('header_hug');
+      document.getElementById('mini-dudu-head').innerHTML = getMiniHeadSVG('dudu');
+      document.getElementById('mini-bubu-head').innerHTML = getMiniHeadSVG('bubu');
+      document.getElementById('squish-bubu-container').innerHTML = getBubuDuduSVG('cheek_squish');
+
+      // Iniciar reloj y sincronización horaria de Guatemala
+      await syncRealGuatemalaTime();
+      updateClockAndCountdowns();
+      setInterval(updateClockAndCountdowns, 1000);
+
+      // Renderizar las 24 puertas
+      renderAdventGrid();
+
+      // Iniciar animación de nieve y confeti
+      initSnowAndConfettiCanvases();
+
+      // Conectar a Firebase Firestore
+      await initFirebaseConnection();
+    });
+  </script>
+</body>
+</html>
