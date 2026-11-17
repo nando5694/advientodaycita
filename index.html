@@ -276,7 +276,7 @@
   <div id="test-mode-banner" class="hidden relative z-30 bg-gradient-to-r from-pine via-pineLight to-pine text-white px-4 py-2.5 shadow-md border-b-2 border-gold">
     <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
       <div class="flex items-center gap-2 font-display">
-        <span class="px-2 py-0.5 bg-gold text-cocoa font-bold rounded-full text-xs">MODO NOVIO ACTIVO 🛠️</span>
+        <span class="px-2 py-0.5 bg-gold text-cocoa font-bold rounded-full text-xs">MODO dudu ACTIVO 🛠️</span>
         <span>Todas las 24 puertas están desbloqueadas para que puedas probarlas hoy mismo.</span>
       </div>
       <div class="flex items-center gap-2">
@@ -481,7 +481,7 @@
           </button>
         </div>
 
-        <!-- Tarjeta 3: Buzón Directo de Daycita para su Novio -->
+        <!-- Tarjeta 3: Buzón Directo de Daycita para su dudu -->
         <div class="bg-cream rounded-2xl p-5 border border-blushDeep flex flex-col items-center text-center shadow-sm">
           <div class="w-16 h-16 rounded-full bg-blush flex items-center justify-center text-3xl mb-3 shadow-inner">
             💌
@@ -509,7 +509,7 @@
       <div class="pt-2 flex justify-center items-center gap-3">
         <button onclick="openPinUnlockModal()" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/70 hover:bg-white text-cocoa/60 hover:text-cocoa border border-blushDeep/50 text-xs transition">
           <i class="ph-fill ph-lock-key"></i>
-          <span>Acceso Novio / Modo Prueba</span>
+          <span>Acceso dudu / Modo Prueba</span>
         </button>
       </div>
     </footer>
@@ -631,7 +631,7 @@
 
           <!-- Campo de nota de Daycita -->
           <div class="flex gap-2">
-            <input id="daycita-note-input" type="text" maxlength="140" placeholder="Déjale una notita aquí a tu novio sobre este día..." class="flex-1 px-3 py-2 rounded-xl bg-white border border-blushDeep text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-berry" />
+            <input id="daycita-note-input" type="text" maxlength="140" placeholder="Déjale una notita aquí a tu dudu sobre este día..." class="flex-1 px-3 py-2 rounded-xl bg-white border border-blushDeep text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-berry" />
             <button onclick="saveDaycitaNoteForCurrentDay()" class="px-4 py-2 rounded-xl bg-pine hover:bg-pineLight text-white font-display font-semibold text-xs sm:text-sm shadow transition active:scale-95">
               Guardar 💾
             </button>
@@ -670,7 +670,7 @@
   </div>
 
   <!-- =====================================================================
-       MODAL 4: CARTA DE BIENVENIDA & PIN DE MODO PRUEBA / PANEL NOVIO
+       MODAL 4: CARTA DE BIENVENIDA & PIN DE MODO PRUEBA / PANEL dudu
        ===================================================================== -->
   <div id="utility-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-cocoa/60 backdrop-blur-sm">
     <div class="bg-cream border-4 border-blushDeep rounded-3xl max-w-lg w-full p-6 shadow-2xl relative max-h-[88vh] overflow-y-auto">
@@ -746,7 +746,7 @@
       globalHugs: 0,
       cheeksSquished: 0,
       wishes: [],
-      testMode: false, // Si es true, permite abrir cualquier día (Modo Prueba Novio)
+      testMode: false, // Si es true, permite abrir cualquier día (Modo Prueba dudu)
       secretStarClicks: 0,
       activeModalDay: null,
       selectedReaction: '',
@@ -800,7 +800,7 @@
         tag: "Barriguita Feliz 🍓",
         scene: "hot_cocoa",
         sticker: "🍰",
-        message: "Sabes que a Bubu le encanta comer cositas ricas y que Dudu siempre la consiente en todo... pues así mismito me encanta consentirte a ti, mi Daycita. Hoy celebramos que eres la novia más dulce del universo.",
+        message: "Sabes que a Bubu le encanta comer cositas ricas y que Dudu siempre la consiente en todo... pues así mismito me encanta consentirte a ti, mi Daycita. Hoy celebramos que eres la bubu más dulce del universo.",
         couponTitle: "Vale por tu Postre o Antojito Favorito 🍨🍓",
         couponDesc: "Dime qué dulce, helado o pastelito se te antoja y tu Dudu va por él sin hacer preguntas.",
         interactiveType: "none"
@@ -845,7 +845,7 @@
         tag: "Calorcito de Oso 🧣",
         scene: "header_hug",
         sticker: "🧣",
-        message: "Los científicos del Polo Norte comprobaron que un abrazo de Dudu a su Bubu sube la temperatura del corazón en 3 segundos. ¡Nunca pases frío teniendo a tu novio listo para abrazarte!",
+        message: "Los científicos del Polo Norte comprobaron que un abrazo de Dudu a su Bubu sube la temperatura del corazón en 3 segundos. ¡Nunca pases frío teniendo a tu dudu listo para abrazarte!",
         couponTitle: "Vale por un 'Abrazo de Koala' de 5 Minutos Sin Soltarte 🐨❤️",
         couponDesc: "Válido en cualquier momento en que digas la palabra clave: 'Dudu, tengo frío'.",
         interactiveType: "hug_burst"
@@ -892,7 +892,7 @@
         sticker: "🎀",
         message: "¡Ya abriste la mitad del calendario, mi Daycita hermosa! Qué emoción estar viviendo este diciembre contigo. Cada día que pasa te amo todavía más que el anterior.",
         couponTitle: "Vale por un Detallito Sorpresa Extra de Mitad de Mes 🎁✨",
-        couponDesc: "Muéstrale captura de este vale a tu novio para reclamar un dulcito o detallito sorpresa.",
+        couponDesc: "Muéstrale captura de este vale a tu dudu para reclamar un dulcito o detallito sorpresa.",
         interactiveType: "hug_burst"
       },
       {
@@ -1036,9 +1036,9 @@
     const FUNNY_LOCKED_MESSAGES = [
       "¡Oye, Daycita curiosa! 🐾 Dudu Guardia Real reporta que aún no es este día. ¡Guarda esas manitas!",
       "¡Bubu y Dudu te vieron intentando hacer trampa, Dairyn! 👀 Toca esperar al día correcto con paciencia de osita buena.",
-      "¡Piip piip! 🚨 Alerta de novia hermosa tratando de abrir su regalo antes de tiempo. ¡Dudu puso doble candado de chocolate!",
+      "¡Piip piip! 🚨 Alerta de bubu hermosa tratando de abrir su regalo antes de tiempo. ¡Dudu puso doble candado de chocolate!",
       "¡Jajaja, casi lo logras, mi Daycita! Pero la magia navideña solo abre esta puertita cuando el reloj de Guatemala marque su día.",
-      "Dice Dudu que por cada intento de abrir antes de fecha, le debes 5 besitos extra a tu novio. 😘🐻"
+      "Dice Dudu que por cada intento de abrir antes de fecha, le debes 5 besitos extra a tu dudu. 😘🐻"
     ];
 
     /* =========================================================================
@@ -1988,7 +1988,7 @@
 
       document.getElementById('btn-copy-coupon-text').textContent = '¡Vale copiado! Pégalo en WhatsApp 💬';
       playSoundEffect('boop');
-      showCuteToast('🎟️', '¡Vale copiado! Ya puedes enviárselo a tu novio por WhatsApp.');
+      showCuteToast('🎟️', '¡Vale copiado! Ya puedes enviárselo a tu dudu por WhatsApp.');
     };
 
     /* Billetera de Vales */
@@ -2147,7 +2147,7 @@
           <div class="w-14 h-14 rounded-full bg-blush text-berry mx-auto flex items-center justify-center text-2xl">
             🔐
           </div>
-          <h3 class="font-display text-xl font-bold text-cocoa">Panel Secreto del Novio (Dudu)</h3>
+          <h3 class="font-display text-xl font-bold text-cocoa">Panel Secreto del dudu (Dudu)</h3>
           <p class="text-xs sm:text-sm text-cocoa/75">
             Ingresa el PIN secreto (<strong>2412</strong>) para probar abrir todas las puertas antes de diciembre o leer las notas que Daycita ha dejado.
           </p>
